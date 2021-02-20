@@ -16,5 +16,24 @@
         "perfectbuilderapp1fc4287a": {}
       }
     }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-perfect-builder-app-dev-151547-authRole",
+      "UnauthRoleArn": "arn:aws:iam::737444625582:role/amplify-perfect-builder-app-dev-151547-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::737444625582:role/amplify-perfect-builder-app-dev-151547-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-perfect-builder-app-dev-151547-deployment",
+      "UnauthRoleName": "amplify-perfect-builder-app-dev-151547-unauthRole",
+      "StackName": "amplify-perfect-builder-app-dev-151547",
+      "StackId": "arn:aws:cloudformation:ap-south-1:737444625582:stack/amplify-perfect-builder-app-dev-151547/73fbf980-7360-11eb-8f45-06a11727ac50",
+      "AmplifyAppId": "d183rjf3jy4m81"
+    },
+    "categories": {
+      "auth": {
+        "perfectbuilderappb795a9d4": {},
+        "userPoolGroups": {}
+      }
+    }
   }
 }
