@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "perfectbuilderapp1fc4287a": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
