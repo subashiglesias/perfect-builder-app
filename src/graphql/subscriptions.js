@@ -5,9 +5,12 @@ export const onCreateProject = /* GraphQL */ `
   subscription OnCreateProject {
     onCreateProject {
       id
-      title
+      name
+      area
+      category
       description
-      status
+      createdBy
+      createdDate
       createdAt
       updatedAt
     }
@@ -17,9 +20,12 @@ export const onUpdateProject = /* GraphQL */ `
   subscription OnUpdateProject {
     onUpdateProject {
       id
-      title
+      name
+      area
+      category
       description
-      status
+      createdBy
+      createdDate
       createdAt
       updatedAt
     }
@@ -29,9 +35,12 @@ export const onDeleteProject = /* GraphQL */ `
   subscription OnDeleteProject {
     onDeleteProject {
       id
-      title
+      name
+      area
+      category
       description
-      status
+      createdBy
+      createdDate
       createdAt
       updatedAt
     }

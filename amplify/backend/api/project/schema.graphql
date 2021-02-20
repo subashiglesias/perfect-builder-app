@@ -2,12 +2,15 @@ type Project
   @model
   @auth(
     rules: [
-      { allow: groups, groups: ["Managers"], queries: null, mutations: [create, update, delete] }
+      { allow: groups, groups: ["Managers"], queries: [get, list], mutations: [create, update, delete] }
       { allow: groups, groups: ["Employees"], queries: [get, list], mutations: null }
     ]
   ) {
   id: ID!
-  title: String!
+  name: String
+  area: String
+  category: String
   description: String
-  status: String
+  createdBy: String
+  createdDate: String
 }

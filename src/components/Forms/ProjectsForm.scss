@@ -1,0 +1,36 @@
+
+.header {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    font-size: 18px;
+    text-align: center;
+    padding: 5px;
+}
+form  {
+    .content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 0.5rem 0 0 15rem;
+        label {
+            display: flex;
+            justify-content: flex-start;
+        }
+        error {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 0.5rem 0 0 15rem;
+            color: #db0c2b;
+        }
+        input {
+            width: 20rem;
+        }
+        .actions {
+            width: 100%;
+            padding: 10px 5px;
+            margin: auto;
+            text-align: center;
+        }
+    }
+}
