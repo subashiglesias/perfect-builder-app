@@ -9,9 +9,21 @@ export const createProject = /* GraphQL */ `
     createProject(input: $input, condition: $condition) {
       id
       name
-      area
-      category
-      description
+      noOfBlocks
+      address
+      comments
+      blocks {
+        name
+        carParkingArea
+        noOfUnits
+        noOfFloors
+        floors {
+          name
+          floorNo
+          ceilingHeight
+        }
+        basementHeight
+      }
       createdBy
       createdDate
       createdAt
@@ -27,9 +39,21 @@ export const updateProject = /* GraphQL */ `
     updateProject(input: $input, condition: $condition) {
       id
       name
-      area
-      category
-      description
+      noOfBlocks
+      address
+      comments
+      blocks {
+        name
+        carParkingArea
+        noOfUnits
+        noOfFloors
+        floors {
+          name
+          floorNo
+          ceilingHeight
+        }
+        basementHeight
+      }
       createdBy
       createdDate
       createdAt
@@ -45,9 +69,21 @@ export const deleteProject = /* GraphQL */ `
     deleteProject(input: $input, condition: $condition) {
       id
       name
-      area
-      category
-      description
+      noOfBlocks
+      address
+      comments
+      blocks {
+        name
+        carParkingArea
+        noOfUnits
+        noOfFloors
+        floors {
+          name
+          floorNo
+          ceilingHeight
+        }
+        basementHeight
+      }
       createdBy
       createdDate
       createdAt

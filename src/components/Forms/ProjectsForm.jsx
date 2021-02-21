@@ -1,23 +1,20 @@
 import React from 'react';
 import './ProjectsForm.scss'
 import {renderIf} from "../../utils/helpers";
+import TextBox from "../TextBox";
+import TextArea from "../TextArea";
 
 const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
     console.log(fieldValues);
 
     return (
     <div className="modal">
-        <div className="header"> New Project</div>
+        <div className="header"> { `${fieldValues.name || 'New'} Project` }</div>
         <form onSubmit={handleSubmit}>
             <div className="content">
-                <label htmlFor="name">Enter project Name</label>
-                <input id="name" name="name" type="text" defaultValue={fieldValues.name || ''} required/>
-                <label htmlFor="area">Enter project Area</label>
-                <input id="area" name="area" type="text" defaultValue={fieldValues.area || ''} required/>
-                <label htmlFor="category">Enter project Category</label>
-                <input id="category" name="category" type="text" defaultValue={fieldValues.category || ''} required/>
-                <label htmlFor="description">Enter project Description</label>
-                <input id="description" name="description" type="text" defaultValue={fieldValues.description || ''} required/>
+                <TextBox label="Enter project Name" defaulValue={fieldValues.name} required/>
+                <TextArea label="Enter project Address" cols={1} rows={3} defaulValue={fieldValues.area} required/>
+                <TextArea label="Enter project Comments" cols={1} rows={3} defaulValue={fieldValues.category} required/>
             </div>
             {renderIf( () => dialog, () => (
                 <div className="error">

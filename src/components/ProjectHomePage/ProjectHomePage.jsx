@@ -13,7 +13,7 @@ import './ProjectHomePage.scss'
 import ProjectsPage from "../ProjectsPage";
 
 const ProjectHomePage = () => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState("1");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -43,17 +43,9 @@ const ProjectHomePage = () => {
                     <AppBar position="static" className={classes.customizeToolbar}>
                         <TabList onChange={handleChange} aria-label="Group of screens">
                             <Tab label="Building" value="1"/>
-                            <Tab label="Construction" value="2"/>
-                            <Tab label="Transportation" value="3"/>
                         </TabList>
                     </AppBar>
-                    { renderIf(() => value === 0, () => (<div className="home-page-content">
-                        <h2> Welcome to Projects Overview </h2>
-                        <h3> Please select one of the projects above to proceed </h3>
-                    </div>) )}
                     <TabPanel value="1"> <ProjectsPage/> </TabPanel>
-                    <TabPanel value="2">Item Two</TabPanel>
-                    <TabPanel value="3">Item Three</TabPanel>
                 </TabContext>
             </ThemeProvider>
         </div>)

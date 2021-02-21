@@ -6,9 +6,21 @@ export const getProject = /* GraphQL */ `
     getProject(id: $id) {
       id
       name
-      area
-      category
-      description
+      noOfBlocks
+      address
+      comments
+      blocks {
+        name
+        carParkingArea
+        noOfUnits
+        noOfFloors
+        floors {
+          name
+          floorNo
+          ceilingHeight
+        }
+        basementHeight
+      }
       createdBy
       createdDate
       createdAt
@@ -26,9 +38,16 @@ export const listProjects = /* GraphQL */ `
       items {
         id
         name
-        area
-        category
-        description
+        noOfBlocks
+        address
+        comments
+        blocks {
+          name
+          carParkingArea
+          noOfUnits
+          noOfFloors
+          basementHeight
+        }
         createdBy
         createdDate
         createdAt

@@ -8,9 +8,25 @@ type Project
   ) {
   id: ID!
   name: String
-  area: String
-  category: String
-  description: String
+  noOfBlocks: String
+  address: String
+  comments: String
+  blocks: [Blocks]
   createdBy: String
   createdDate: String
+}
+
+type Blocks {
+  name: String
+  carParkingArea: String
+  noOfUnits: Int
+  noOfFloors: Int
+  floors: [Floors]
+  basementHeight: String
+}
+
+type Floors {
+  name: String
+  floorNo: Int
+  ceilingHeight: String
 }

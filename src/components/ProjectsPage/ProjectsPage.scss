@@ -1,11 +1,15 @@
 
 .project-page {
     height: 50rem;
+
+    .MuiTabs-vertical {
+        min-width: 10rem;
+    }
 }
 
 .project-page__content {
     align-items: center;
-    padding-left: 18rem;
+    padding-left: 2rem;
 }
 
 .project-page__panel {

@@ -6,9 +6,21 @@ export const onCreateProject = /* GraphQL */ `
     onCreateProject {
       id
       name
-      area
-      category
-      description
+      noOfBlocks
+      address
+      comments
+      blocks {
+        name
+        carParkingArea
+        noOfUnits
+        noOfFloors
+        floors {
+          name
+          floorNo
+          ceilingHeight
+        }
+        basementHeight
+      }
       createdBy
       createdDate
       createdAt
@@ -21,9 +33,21 @@ export const onUpdateProject = /* GraphQL */ `
     onUpdateProject {
       id
       name
-      area
-      category
-      description
+      noOfBlocks
+      address
+      comments
+      blocks {
+        name
+        carParkingArea
+        noOfUnits
+        noOfFloors
+        floors {
+          name
+          floorNo
+          ceilingHeight
+        }
+        basementHeight
+      }
       createdBy
       createdDate
       createdAt
@@ -36,9 +60,21 @@ export const onDeleteProject = /* GraphQL */ `
     onDeleteProject {
       id
       name
-      area
-      category
-      description
+      noOfBlocks
+      address
+      comments
+      blocks {
+        name
+        carParkingArea
+        noOfUnits
+        noOfFloors
+        floors {
+          name
+          floorNo
+          ceilingHeight
+        }
+        basementHeight
+      }
       createdBy
       createdDate
       createdAt
