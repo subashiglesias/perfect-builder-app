@@ -42,7 +42,7 @@ const ProjectHomePage = () => {
                 <TabContext value={value}>
                     <AppBar position="static" className={classes.customizeToolbar}>
                         <TabList onChange={handleChange} aria-label="Group of screens">
-                            <Tab label="Building" value="1"/>
+                            <Tab label="Projects" value="1"/>
                         </TabList>
                     </AppBar>
                     <TabPanel value="1"> <ProjectsPage/> </TabPanel>

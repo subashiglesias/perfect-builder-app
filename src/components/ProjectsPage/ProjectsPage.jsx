@@ -6,7 +6,7 @@ import TabList from "@material-ui/lab/TabList";
 import Tab from "@material-ui/core/Tab";
 import 'reactjs-popup/dist/index.css';
 import addBox from '../../images/add_box.svg'
-import ProjectsForm from "../Forms";
+import ProjectsForm from "../Forms/ProjectsForm";
 import {API, Auth} from "aws-amplify";
 import {listProjects} from "../../graphql/queries";
 import {createProject as createProjectMutation} from '../../graphql/mutations';
@@ -36,10 +36,10 @@ const ProjectsPage = () => {
         setValue(newValue);
     };
 
-    const handleSubmit = async event => {
+    const handleSubmit = blocks => async event => {
         event.preventDefault();
         const form = event.target;
-        const body = createNewProjectBody(new FormData(form));
+        const body = createNewProjectBody(new FormData(form), blocks);
         console.log(body);
         await API.graphql({query: createProjectMutation, variables: {input: body}})
             .then( res => {
@@ -54,12 +54,13 @@ const ProjectsPage = () => {
 
     };
 
-    const createNewProjectBody = (formValues) => {
+    const createNewProjectBody = (formValues, blocks) => {
         return {
             name: formValues.get('name'),
-            area: formValues.get('area'),
-            category: formValues.get('category'),
-            description: formValues.get('description'),
+            address: formValues.get('address'),
+            comments: formValues.get('comment'),
+            noOfBlocks: blocks.length,
+            blocks: blocks,
             createdBy: "Bob cane",
             createdDate: moment().format('DD/MM/YYYY'),
         }
@@ -94,12 +95,12 @@ const ProjectsPage = () => {
                     <TabPanel value={0}>
                         <div className="project-page__content">
                             <h3> Please select the name of the projects at the side to edit or fill a new one below</h3>
-                            <ProjectsForm handleSubmit={handleSubmit} dialog={dialog} fieldValues={{}}/>
+                            <ProjectsForm handleSubmit={handleSubmit} dialog={dialog} fieldValues={{}} classes={classes}/>
                         </div>
                     </TabPanel>
                     {projects.map((project) => (
                         <TabPanel value={project.name}> <ProjectsForm handleSubmit={handleSubmit} dialog={dialog}
-                                                                      fieldValues={project}/> </TabPanel>))}
+                                                                      fieldValues={project} classes={classes}/> </TabPanel>))}
                 </TabContext>
             </div>
         </div>)
