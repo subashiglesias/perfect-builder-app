@@ -3,18 +3,12 @@ import './ProjectsForm.scss'
 import {renderIf} from "../../../utils/helpers";
 import TextBox from "../../TextBox";
 import TextArea from "../../TextArea";
-import {TabContext, TabPanel} from "@material-ui/lab";
-import TabList from "@material-ui/lab/TabList";
-import Tab from "@material-ui/core/Tab";
 import {Avatar} from "@material-ui/core";
-import addBox from "../../../images/add_box.svg";
-import BlocksForm from "../BlocksForm";
-
-var moment = require('moment'); // require
-
+import addField from "../../../images/add_box.svg";
+import Styles from "../../ReactTable/Styles/Styles";
+import ReactTable from "../../ReactTable";
 
 const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
-    console.log(fieldValues);
     const [value, setValue] = useState(0);
     const [blocks, setBlocks] = useState(fieldValues.blocks || []);
 
@@ -22,6 +16,74 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const renderEditable = (row, defaultValue) => {
+        return (
+            <input
+                id={defaultValue+row.index}
+                name={defaultValue+row.index}
+                type="text"
+                defaultValue={row.values[defaultValue] || ''}
+                onBlur={(event) => updateRow(row, event, defaultValue)}
+            />
+        );
+    };
+
+    const updateRow = (row, event, defaultValue) => {
+        event.preventDefault()
+        const allBlocks = [...blocks]
+        let findFirst = true
+        if(event.target.value) {
+            allBlocks.map(block => {
+                if(findFirst && block.name === row.values.name && block.basementHeight === row.values.basementHeight && block.carParkingArea === row.values.carParkingArea && block.noOfUnits === row.values.noOfUnits) {
+                    block[defaultValue] = event.target.value;
+                    findFirst = false;
+                    console.log("I am ", block);
+                }
+                return block
+            })
+            setBlocks(allBlocks)
+        }
+    }
+
+    const columns = [
+                {
+                    Header: 'Blocks',
+                    columns: [
+                        {
+                            Header: 'Block Name',
+                            accessor: 'name',
+                            Cell: ({row}) => renderEditable(row, "name"),
+                        },
+                        {
+                            Header: 'No. of Units',
+                            accessor: 'noOfUnits',
+                            Cell: ({row}) => renderEditable(row, "noOfUnits"),
+                        },
+                        {
+                            Header: 'Car Parking Area',
+                            accessor: 'carParkingArea',
+                            Cell: ({row}) => renderEditable(row, "carParkingArea"),
+                        },
+                        {
+                            Header: 'Basement height',
+                            accessor: 'basementHeight',
+                            Cell: ({row}) => renderEditable(row, "basementHeight"),
+                        },
+                    ],
+                },
+            ]
+
+        const formatData = (blocks) => {
+            const data = []
+            blocks.forEach(block => data.push({
+                name: block.name,
+                noOfUnits: block.noOfUnits,
+                carParkingArea: block.carParkingArea,
+                basementHeight: block.basementHeight,
+            }))
+            return data;
+        }
 
     return (
         <div className="project-form">
@@ -48,24 +110,23 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
                 </div>
             </form>
             <div >
-                <TabContext value={value}>
-                    <TabList orientation="vertical"
-                             variant="scrollable"
-                             value={value}
-                             onChange={handleChange}
-                             aria-label="List of blocks">
-                        <Tab icon={<Avatar alt="Add new" src={addBox}/>} value={0}/>
-                        {blocks.map((block) => (
-                            <Tab label={block.name} value={block.name}/>))}
-                    </TabList>
-                    <TabPanel value={0}>
-                        <div className="project-page__content">
-                            <BlocksForm blockValues={blocks} setBlocksValues={setBlocks}/>
-                        </div>
-                    </TabPanel>
-                    {blocks && blocks.map((block) => (
-                        <TabPanel value={block.name}> <BlocksForm blockValues={block}/> </TabPanel>))}
-                </TabContext>
+                <h4>Blocks</h4>
+                <div className="add-new">
+                <span onClick={() => {
+                    const allBlocks = [...blocks];
+                    allBlocks.push({name: '',
+                        carParkingArea: '',
+                        basementHeight: '',
+                        noOfFloors: '',
+                        noOfUnits: '',
+                    })
+                    setBlocks(allBlocks)}}>
+                    <Avatar alt="Add project" src={addField}/>
+                </span>
+                </div>
+                <Styles>
+                    <ReactTable columns={columns} data={formatData(blocks)} />
+                </Styles>
             </div>
         </div>
     )

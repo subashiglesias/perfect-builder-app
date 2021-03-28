@@ -31,10 +31,10 @@ const BlocksForm = ({blockValues, setBlocksValues}) => {
         <form onSubmit={blockHandleSubmit}>
             <div>
                 {`No of Blocks: ${blockValues.length}`}
-                <TextBox label="Enter Block Name" id={'name'} defaulValue={blockValues.name}  required/>
-                <TextBox label="Enter No of Units" id={'noOfUnits'} defaulValue={blockValues.noOfUnits} required/>
-                <TextBox label="Enter Car Parking Area" id={'carParkingArea'} defaulValue={blockValues.carParkingArea} required/>
-                <TextBox label="Enter Basement Height" id={'basementHeight'} defaulValue={blockValues.basementHeight} required/>
+                <TextBox label="Enter Block Name" id={'name'} defaulValue={blockValues.name} />
+                <TextBox label="Enter No of Units" id={'noOfUnits'} defaulValue={blockValues.noOfUnits} />
+                <TextBox label="Enter Car Parking Area" id={'carParkingArea'} defaulValue={blockValues.carParkingArea} />
+                <TextBox label="Enter Basement Height" id={'basementHeight'} defaulValue={blockValues.basementHeight} />
             </div>
 
             <div className="save">
