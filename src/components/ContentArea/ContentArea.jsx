@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import Loadable from 'react-loadable';
 import DummyLoader from './DummyLoader';
@@ -26,7 +26,14 @@ const ForbiddenPageComponent = Loadable({
 
 const getPath = path => config.appRoute + path;
 
-const ContentArea = () => (
+const ContentArea = ({getSession, currentSession}) => {
+
+    useEffect(() => {
+        getSession();
+        console.log("Session is ", currentSession)
+    }, [])
+
+    return (
     <div className="content-area">
         <Switch>
             <Route exact path={getPath(RouterPaths.ROOT)} component={LandingPageComponent}/>
@@ -42,6 +49,6 @@ const ContentArea = () => (
             />
         </Switch>
     </div>
-);
+)};
 
 export default ContentArea;
