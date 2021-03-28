@@ -18,8 +18,7 @@ import ProjectsForm from "../Forms/ProjectsForm";
 var moment = require('moment'); // require
 
 
-const ProjectsPage = ({projectList, getAllProjects}) => {
-    console.log(projectList);
+const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects}) => {
     const [dialog, setDialog] = useState('');
     const [editProject, setEditProject] = useState({});
     const [openModal, setOpenModal] = useState(false);
@@ -39,17 +38,7 @@ const ProjectsPage = ({projectList, getAllProjects}) => {
         const form = event.target;
         const body = createNewProjectBody(new FormData(form), blocks);
         console.log(body);
-        await API.graphql({query: body.id ? updateProjectMutation : createProjectMutation, variables: {input: body}})
-            .then( res => {
-                fetchProjects().then(res => {
-                    // setProjects(res.data.listProjects.items)
-                    setDialog('');
-                })
-            }).catch( async err => {
-            await console.log(err);
-            setDialog(err.errors[0].message)
-        });
-
+        createOrUpdateProjects(body)
     };
 
     const editRow = (row, allProjects) => {
@@ -200,7 +189,10 @@ const ProjectsPage = ({projectList, getAllProjects}) => {
     return (
         <div className="project-page">
             <div className="add-new">
-                <span onClick={() => setOpenModal(true)}>
+                <span onClick={() => {
+                    setEditProject({})
+                    setOpenModal(true)
+                }}>
                     <Avatar alt="Add project" src={addField}/>
                 </span>
             </div>
@@ -210,6 +202,7 @@ const ProjectsPage = ({projectList, getAllProjects}) => {
             <Modal
                 isOpen={openModal}
                 ariaHideApp={false}
+                onRequestClose={toggleEditModal}
                 contentLabel="Example Modal"
             > <div className="project-page__form">
                 <ProjectsForm handleSubmit={handleSubmit} dialog={dialog}

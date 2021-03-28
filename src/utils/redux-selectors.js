@@ -1,3 +1,3 @@
 
-export const getAuthorizationDetails = state => state.authReducer;
+export const getProjectList = state => state.projects.projectList;
 
