@@ -4,7 +4,7 @@ import {
 } from '../../actions';
 
 const mapStateToProps = state => ({
-    currentSession: state.currentSession,
+    currentSession: state.authReducer.currentSession,
 });
 
 

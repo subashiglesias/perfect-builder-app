@@ -1,9 +1,16 @@
 
 .project-page {
+    display: flex;
+    justify-content: center;
     height: 50rem;
 
     .MuiTabs-vertical {
         min-width: 10rem;
+    }
+
+    .MuiAvatar-img {
+        width: 1.5rem;
+        height: 1.5rem;
     }
 }
 

@@ -6,6 +6,9 @@ import {listProjects} from "../../graphql/queries";
 import {createProject as createProjectMutation} from '../../graphql/mutations';
 import styled from "styled-components";
 import ReactTable from "../ReactTable";
+import editBlack from "../../images/edit-black.svg";
+import deleteBlack from "../../images/delete-black.svg";
+import {Avatar} from "@material-ui/core";
 
 
 var moment = require('moment'); // require
@@ -22,7 +25,6 @@ const ProjectsPage = () => {
 
     const fetchProjects = async () => {
         const ProjectsData = await API.graphql({query: listProjects});
-        console.log(await Auth.currentSession());
         console.log(ProjectsData);
         return ProjectsData;
     };
@@ -48,6 +50,10 @@ const ProjectsPage = () => {
         });
 
     };
+
+    const editRow = (row) => {
+        console.log(row.values.projectName)
+    }
 
     const createNewProjectBody = (formValues, blocks) => {
         return {
@@ -146,8 +152,16 @@ const ProjectsPage = () => {
                         accessor: 'createdDate',
                     },
                     {
-                        Header: 'Edit or Delete',
-                        accessor: 'editOrDelete',
+                        Header: 'Edit',
+                        Cell: ({row}) => (<span onClick={ () => editRow(row)}>
+                            <Avatar alt="Edit project" src={editBlack}/>
+                        </span>),
+                    },
+                    {
+                        Header: 'Delete',
+                        Cell: () => (<span>
+                            <Avatar alt="Add project" src={deleteBlack}/>
+                        </span>),
                     },
                 ],
             },
@@ -163,14 +177,10 @@ const ProjectsPage = () => {
             projectBlocksCount: project.noOfBlocks,
             projectFloorsCount: 'yet to implement',
             createdBy: project.createdBy,
-            createdDate: project.createdDate
+            createdDate: project.createdDate,
         }))
         return data;
     }
-
-
-
-
 
     return (
         <div className="project-page">

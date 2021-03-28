@@ -8,7 +8,6 @@ import { GET_CURRENT_SESSION } from "../actions/types";
 export const getSession = function* (action) {
     try {
         const sessionData = yield call(getAuthSession);
-        console.log(Object.keys(sessionData).length)
         if(Object.keys(sessionData).length)
             yield put(updateCurrentSession(sessionData));
     } catch (error) {

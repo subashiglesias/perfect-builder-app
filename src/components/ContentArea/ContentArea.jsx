@@ -29,9 +29,10 @@ const getPath = path => config.appRoute + path;
 const ContentArea = ({getSession, currentSession}) => {
 
     useEffect(() => {
-        getSession();
-        console.log("Session is ", currentSession)
-    }, [])
+        if(!Object.keys(currentSession).length){
+            getSession();
+        }
+    }, [currentSession])
 
     return (
     <div className="content-area">
