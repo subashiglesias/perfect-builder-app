@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProjectsPage.scss';
 import 'reactjs-popup/dist/index.css';
-import {API, Auth} from "aws-amplify";
-import {listProjects} from "../../graphql/queries";
-import {createProject as createProjectMutation, updateProject as updateProjectMutation} from '../../graphql/mutations';
+import { API } from "aws-amplify";
+import { listProjects } from "../../graphql/queries";
+import { createProject as createProjectMutation, updateProject as updateProjectMutation } from '../../graphql/mutations';
 import styled from "styled-components";
 import ReactTable from "../ReactTable";
-import editBlack from "../../images/edit-black.svg";
-import deleteBlack from "../../images/delete-black.svg";
-import {Avatar} from "@material-ui/core";
+import editField from "../../images/edit-black.svg";
+import deleteField from "../../images/delete-black.svg";
+import addField from "../../images/add_box.svg";
+import { Avatar } from "@material-ui/core";
 import Modal from 'react-modal';
 import ProjectsForm from "../Forms/ProjectsForm";
 
@@ -17,14 +18,13 @@ import ProjectsForm from "../Forms/ProjectsForm";
 var moment = require('moment'); // require
 
 
-const ProjectsPage = () => {
-    const [projects, setProjects] = useState([]);
+const ProjectsPage = ({projects, getAllProjects}) => {
     const [dialog, setDialog] = useState('');
     const [editProject, setEditProject] = useState({});
     const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
-        fetchProjects().then(res => setProjects(res.data.listProjects.items));
+        getAllProjects()
     }, []);
 
     const fetchProjects = async () => {
@@ -41,7 +41,7 @@ const ProjectsPage = () => {
         await API.graphql({query: body.id ? updateProjectMutation : createProjectMutation, variables: {input: body}})
             .then( res => {
                 fetchProjects().then(res => {
-                    setProjects(res.data.listProjects.items)
+                    // setProjects(res.data.listProjects.items)
                     setDialog('');
                 })
             }).catch( async err => {
@@ -51,17 +51,16 @@ const ProjectsPage = () => {
 
     };
 
-    const editRow = (row) => {
+    const editRow = (row, allProjects) => {
         console.log(row.values.projectName);
         console.log(editProject);
-        console.log(projects)
-        projects.map(async project => {
+        console.log(allProjects)
+        allProjects.forEach(async project => {
             if(project.name === row.values.projectName) {
                 console.log(project)
                 await setEditProject(project)
                 toggleEditModal()
             }
-            return project
         });
         console.log(editProject)
         console.log("Modal is ", openModal)
@@ -171,14 +170,14 @@ const ProjectsPage = () => {
                     },
                     {
                         Header: 'Edit',
-                        Cell: ({row}) => (<span onClick={ () => editRow(row)}>
-                            <Avatar alt="Edit project" src={editBlack}/>
+                        Cell: ({row}) => (<span onClick={ () => editRow( row, projects)}>
+                            <Avatar alt="Edit project" src={editField}/>
                         </span>),
                     },
                     {
                         Header: 'Delete',
                         Cell: () => (<span>
-                            <Avatar alt="Add project" src={deleteBlack}/>
+                            <Avatar alt="Add project" src={deleteField}/>
                         </span>),
                     },
                 ],
@@ -202,11 +201,17 @@ const ProjectsPage = () => {
 
     return (
         <div className="project-page">
+            <div className="add-new">
+                <span onClick={() => setOpenModal(true)}>
+                    <Avatar alt="Add project" src={addField}/>
+                </span>
+            </div>
             <Styles>
                 <ReactTable columns={columns} data={formatData(projects)} />
             </Styles>
             <Modal
                 isOpen={openModal}
+                ariaHideApp={false}
                 contentLabel="Example Modal"
             > <div className="project-page__form">
                 <ProjectsForm handleSubmit={handleSubmit} dialog={dialog}
@@ -219,30 +224,6 @@ const ProjectsPage = () => {
               ✕
             </span>
             </Modal>
-                {/*<TabContext value={value}>*/}
-                {/*    <TabList orientation="vertical"*/}
-                {/*             variant="scrollable"*/}
-                {/*             value={value}*/}
-                {/*             onChange={handleChange}*/}
-                {/*             aria-label="List of projects"*/}
-                {/*             className={classes.tabs}>*/}
-                {/*        <Tab icon={<Avatar alt="Add new" src={addBox} />} value={0}/>*/}
-                {/*        {projects.map((project) => (<Tab label={project.name} value={project.name}/>))}*/}
-                {/*    </TabList>*/}
-                {/*    <div className="project-page__panel">*/}
-
-                {/*    </div>*/}
-                {/*    <TabPanel value={0}>*/}
-                {/*        <div className="project-page__content">*/}
-                {/*            <h3> Please select the name of the projects at the side to edit or fill a new one below</h3>*/}
-                {/*            <ProjectsForm handleSubmit={handleSubmit} dialog={dialog} fieldValues={{}} classes={classes}/>*/}
-                {/*        </div>*/}
-                {/*    </TabPanel>*/}
-                {/*    {projects.map((project) => (*/}
-                {/*        <TabPanel value={project.name}> <ProjectsForm handleSubmit={handleSubmit} dialog={dialog}*/}
-                {/*                                                      fieldValues={project} classes={classes}/> </TabPanel>))}*/}
-                {/*</TabContext>*/}
-
         </div>)
 }
 

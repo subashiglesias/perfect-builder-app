@@ -31,7 +31,7 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
                     <TextBox label="Enter project Name" id={'name'} defaulValue={fieldValues.name} required/>
                     {renderIf( () => fieldValues.id , () => (
                         <TextBox label="project id" id={'id'} defaulValue={fieldValues.id} readonly/>
-                        ))};
+                        ))}
                     <TextArea label="Enter project Address" id={'address'} cols={1} rows={3}
                               defaulValue={fieldValues.address} required/>
                     <TextArea label="Enter project Comments" id={'comment'} cols={1} rows={3}
