@@ -37,7 +37,7 @@ const BlocksForm = ({blockValues, setBlocksValues}) => {
                 <TextBox label="Enter Basement Height" id={'basementHeight'} defaulValue={blockValues.basementHeight} required/>
             </div>
 
-            <div className="actions">
+            <div className="save">
                 <button>Create Block</button>
             </div>
         </form>

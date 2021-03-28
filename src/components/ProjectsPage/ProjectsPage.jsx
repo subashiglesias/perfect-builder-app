@@ -3,21 +3,25 @@ import './ProjectsPage.scss';
 import 'reactjs-popup/dist/index.css';
 import {API, Auth} from "aws-amplify";
 import {listProjects} from "../../graphql/queries";
-import {createProject as createProjectMutation} from '../../graphql/mutations';
+import {createProject as createProjectMutation, updateProject as updateProjectMutation} from '../../graphql/mutations';
 import styled from "styled-components";
 import ReactTable from "../ReactTable";
 import editBlack from "../../images/edit-black.svg";
 import deleteBlack from "../../images/delete-black.svg";
 import {Avatar} from "@material-ui/core";
+import Modal from 'react-modal';
+import ProjectsForm from "../Forms/ProjectsForm";
+
 
 
 var moment = require('moment'); // require
 
 
 const ProjectsPage = () => {
-    const [value, setValue] = useState(0);
     const [projects, setProjects] = useState([]);
     const [dialog, setDialog] = useState('');
+    const [editProject, setEditProject] = useState({});
+    const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
         fetchProjects().then(res => setProjects(res.data.listProjects.items));
@@ -29,16 +33,12 @@ const ProjectsPage = () => {
         return ProjectsData;
     };
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
     const handleSubmit = blocks => async event => {
         event.preventDefault();
         const form = event.target;
         const body = createNewProjectBody(new FormData(form), blocks);
         console.log(body);
-        await API.graphql({query: createProjectMutation, variables: {input: body}})
+        await API.graphql({query: body.id ? updateProjectMutation : createProjectMutation, variables: {input: body}})
             .then( res => {
                 fetchProjects().then(res => {
                     setProjects(res.data.listProjects.items)
@@ -52,11 +52,28 @@ const ProjectsPage = () => {
     };
 
     const editRow = (row) => {
-        console.log(row.values.projectName)
+        console.log(row.values.projectName);
+        console.log(editProject);
+        console.log(projects)
+        projects.map(async project => {
+            if(project.name === row.values.projectName) {
+                console.log(project)
+                await setEditProject(project)
+                toggleEditModal()
+            }
+            return project
+        });
+        console.log(editProject)
+        console.log("Modal is ", openModal)
+    }
+
+    const toggleEditModal = () => {
+        setOpenModal(!openModal);
     }
 
     const createNewProjectBody = (formValues, blocks) => {
         return {
+            id: formValues.get('id'),
             name: formValues.get('name'),
             address: formValues.get('address'),
             comments: formValues.get('comment'),
@@ -122,6 +139,7 @@ const ProjectsPage = () => {
     }
   }
 `
+
     const columns = React.useMemo(
         () => [
             {
@@ -187,6 +205,20 @@ const ProjectsPage = () => {
             <Styles>
                 <ReactTable columns={columns} data={formatData(projects)} />
             </Styles>
+            <Modal
+                isOpen={openModal}
+                contentLabel="Example Modal"
+            > <div className="project-page__form">
+                <ProjectsForm handleSubmit={handleSubmit} dialog={dialog}
+                              fieldValues={editProject} />
+            </div>
+            <span className="modalClose" onClick={() => {
+                toggleEditModal()
+                setEditProject({})
+            }}>
+              ✕
+            </span>
+            </Modal>
                 {/*<TabContext value={value}>*/}
                 {/*    <TabList orientation="vertical"*/}
                 {/*             variant="scrollable"*/}

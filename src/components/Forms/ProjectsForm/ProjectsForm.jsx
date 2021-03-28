@@ -13,7 +13,7 @@ import BlocksForm from "../BlocksForm";
 var moment = require('moment'); // require
 
 
-const ProjectsForm = ({handleSubmit, dialog, fieldValues, classes}) => {
+const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
     console.log(fieldValues);
     const [value, setValue] = useState(0);
     const [blocks, setBlocks] = useState(fieldValues.blocks || []);
@@ -24,11 +24,14 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues, classes}) => {
     };
 
     return (
-        <div className="modal">
+        <div className="project-form">
             <div className="header"> {`${fieldValues.name || 'New'} Project`}</div>
             <form onSubmit={handleSubmit(blocks)}>
                 <div className="content">
                     <TextBox label="Enter project Name" id={'name'} defaulValue={fieldValues.name} required/>
+                    {renderIf( () => fieldValues.id , () => (
+                        <TextBox label="project id" id={'id'} defaulValue={fieldValues.id} readonly/>
+                        ))};
                     <TextArea label="Enter project Address" id={'address'} cols={1} rows={3}
                               defaulValue={fieldValues.address} required/>
                     <TextArea label="Enter project Comments" id={'comment'} cols={1} rows={3}
@@ -41,17 +44,16 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues, classes}) => {
                     </div>
                 ))}
                 <div className="actions">
-                    <button>Save</button>
+                    <button className="save">Save</button>
                 </div>
             </form>
-            <div className={classes.root}>
+            <div >
                 <TabContext value={value}>
                     <TabList orientation="vertical"
                              variant="scrollable"
                              value={value}
                              onChange={handleChange}
-                             aria-label="List of blocks"
-                             className={classes.tabs}>
+                             aria-label="List of blocks">
                         <Tab icon={<Avatar alt="Add new" src={addBox}/>} value={0}/>
                         {blocks.map((block) => (
                             <Tab label={block.name} value={block.name}/>))}
