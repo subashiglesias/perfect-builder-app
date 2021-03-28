@@ -7,6 +7,7 @@ import {Avatar} from "@material-ui/core";
 import addField from "../../../images/add_box.svg";
 import Styles from "../../ReactTable/Styles/Styles";
 import ReactTable from "../../ReactTable";
+import deleteField from "../../../images/delete-black.svg";
 
 const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
     const [value, setValue] = useState(0);
@@ -38,12 +39,17 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
                 if(findFirst && block.name === row.values.name && block.basementHeight === row.values.basementHeight && block.carParkingArea === row.values.carParkingArea && block.noOfUnits === row.values.noOfUnits) {
                     block[defaultValue] = event.target.value;
                     findFirst = false;
-                    console.log("I am ", block);
                 }
                 return block
             })
             setBlocks(allBlocks)
         }
+    }
+
+    const deleteBlock = (row, allBlocks) => {
+        const filteredBlocks = [...allBlocks]
+        filteredBlocks.splice(row.index,1)
+        setBlocks(filteredBlocks)
     }
 
     const columns = [
@@ -69,6 +75,12 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
                             Header: 'Basement height',
                             accessor: 'basementHeight',
                             Cell: ({row}) => renderEditable(row, "basementHeight"),
+                        },
+                        {
+                            Header: 'Delete',
+                            Cell: ({row}) => (<span onClick={() => deleteBlock(row, blocks)}>
+                            <Avatar alt="Add project" src={deleteField}/>
+                        </span>),
                         },
                     ],
                 },
@@ -117,7 +129,7 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
                     allBlocks.push({name: '',
                         carParkingArea: '',
                         basementHeight: '',
-                        noOfFloors: '',
+                        noOfFloors: null,
                         noOfUnits: '',
                     })
                     setBlocks(allBlocks)}}>

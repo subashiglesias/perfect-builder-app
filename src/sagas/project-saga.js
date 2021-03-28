@@ -52,6 +52,7 @@ const updateProjectBody = (projectData, body) => {
             project.createdDate = body.createdDate
             project.noOfBlocks = body.noOfBlocks
             project.updatedAt = body.updatedAt
+            project.blocks = body.blocks
         }
         return project
     })

@@ -27,6 +27,7 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects, dele
         event.preventDefault();
         const form = event.target;
         const body = createNewProjectBody(new FormData(form), blocks);
+        console.log(blocks)
         createOrUpdateProjects(body)
     };
 
