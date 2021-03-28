@@ -18,12 +18,13 @@ import ProjectsForm from "../Forms/ProjectsForm";
 var moment = require('moment'); // require
 
 
-const ProjectsPage = ({projects, getAllProjects}) => {
+const ProjectsPage = ({projectList, getAllProjects}) => {
+    console.log(projectList);
     const [dialog, setDialog] = useState('');
     const [editProject, setEditProject] = useState({});
     const [openModal, setOpenModal] = useState(false);
 
-    useEffect(() => {
+    useEffect( () => {
         getAllProjects()
     }, []);
 
@@ -139,8 +140,7 @@ const ProjectsPage = ({projects, getAllProjects}) => {
   }
 `
 
-    const columns = React.useMemo(
-        () => [
+    const columns = [
             {
                 Header: 'Projects',
                 columns: [
@@ -170,7 +170,7 @@ const ProjectsPage = ({projects, getAllProjects}) => {
                     },
                     {
                         Header: 'Edit',
-                        Cell: ({row}) => (<span onClick={ () => editRow( row, projects)}>
+                        Cell: ({row}) => (<span onClick={ () => editRow( row, projectList)}>
                             <Avatar alt="Edit project" src={editField}/>
                         </span>),
                     },
@@ -182,13 +182,11 @@ const ProjectsPage = ({projects, getAllProjects}) => {
                     },
                 ],
             },
-        ],
-        []
-    )
+        ]
 
     const formatData = (projects) => {
         const data = []
-        projects.map(project => data.push({
+        projects.forEach(project => data.push({
             projectName: project.name,
             projectAddress: project.address,
             projectBlocksCount: project.noOfBlocks,
@@ -207,7 +205,7 @@ const ProjectsPage = ({projects, getAllProjects}) => {
                 </span>
             </div>
             <Styles>
-                <ReactTable columns={columns} data={formatData(projects)} />
+                <ReactTable columns={columns} data={formatData(projectList)} />
             </Styles>
             <Modal
                 isOpen={openModal}

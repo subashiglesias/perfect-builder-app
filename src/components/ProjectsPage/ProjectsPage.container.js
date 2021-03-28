@@ -4,7 +4,7 @@ import {
 } from '../../actions';
 
 const mapStateToProps = state => ({
-    projects: state.projects.projectList,
+    projectList: state.projects.projectList,
 });
 
 
