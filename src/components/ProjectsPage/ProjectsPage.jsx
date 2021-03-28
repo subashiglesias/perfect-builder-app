@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './ProjectsPage.scss';
 import 'reactjs-popup/dist/index.css';
-import { API } from "aws-amplify";
-import { listProjects } from "../../graphql/queries";
-import { createProject as createProjectMutation, updateProject as updateProjectMutation } from '../../graphql/mutations';
 import styled from "styled-components";
 import ReactTable from "../ReactTable";
 import editField from "../../images/edit-black.svg";
 import deleteField from "../../images/delete-black.svg";
 import addField from "../../images/add_box.svg";
-import { Avatar } from "@material-ui/core";
+import {Avatar} from "@material-ui/core";
 import Modal from 'react-modal';
 import ProjectsForm from "../Forms/ProjectsForm";
-
 
 
 var moment = require('moment'); // require
 
 
-const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects}) => {
+const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects, deleteProject}) => {
     const [dialog, setDialog] = useState('');
     const [editProject, setEditProject] = useState({});
     const [openModal, setOpenModal] = useState(false);
@@ -26,12 +22,6 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects}) => 
     useEffect( () => {
         getAllProjects()
     }, []);
-
-    const fetchProjects = async () => {
-        const ProjectsData = await API.graphql({query: listProjects});
-        console.log(ProjectsData);
-        return ProjectsData;
-    };
 
     const handleSubmit = blocks => async event => {
         event.preventDefault();
@@ -54,6 +44,14 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects}) => 
         });
         console.log(editProject)
         console.log("Modal is ", openModal)
+    }
+
+    const deleteRow = (row, allProjects) => {
+        allProjects.forEach(async project => {
+            if(project.id === row.values.projectId) {
+                deleteProject(project.id)
+            }
+        });
     }
 
     const toggleEditModal = () => {
@@ -138,6 +136,10 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects}) => 
                         accessor: 'projectName',
                     },
                     {
+                        Header: 'Project ID',
+                        accessor: 'projectId',
+                    },
+                    {
                         Header: 'Address',
                         accessor: 'projectAddress',
                     },
@@ -165,7 +167,7 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects}) => 
                     },
                     {
                         Header: 'Delete',
-                        Cell: () => (<span>
+                        Cell: ({row}) => (<span onClick={() => deleteRow(row, projectList)}>
                             <Avatar alt="Add project" src={deleteField}/>
                         </span>),
                     },
@@ -177,6 +179,7 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects}) => 
         const data = []
         projects.forEach(project => data.push({
             projectName: project.name,
+            projectId: project.id,
             projectAddress: project.address,
             projectBlocksCount: project.noOfBlocks,
             projectFloorsCount: 'yet to implement',

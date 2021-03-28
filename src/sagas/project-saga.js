@@ -1,9 +1,9 @@
 import { call, takeEvery, select, put } from 'redux-saga/effects';
-import { getProjectData, createOrUpdateProjectData } from '../api/project';
+import {getProjectData, createOrUpdateProjectData, deleteProjectData} from '../api/project';
 import {
     updateProjectData,
 } from '../actions';
-import {CREATE_UPDATE_PROJECTS, GET_PROJECTS} from "../actions/types";
+import {CREATE_UPDATE_PROJECTS, DELETE_PROJECT, GET_PROJECTS} from "../actions/types";
 import {getProjectList} from "../utils/redux-selectors";
 
 export const getProjects = function* (action) {
@@ -21,13 +21,26 @@ export const createOrUpdateProjects = function* (action) {
         yield call(createOrUpdateProjectData, action.body);
         const projectData = yield select(getProjectList);
         console.log(projectData)
-        // eslint-disable-next-line no-unused-expressions
-        projectData.filter(project => project.id === action.body.id).length ? updateProjectBody(projectData, action.body) : projectData.push(action.body);
-        yield put(updateProjectData(projectData));
+        const update = !!projectData.filter(project => project.id === action.body.id).length
+        const projects = update ? updateProjectBody(projectData, action.body) : yield call(getProjectData);
+        yield put(update ? updateProjectData(projects) : updateProjectData(projects.data.listProjects.items));
     } catch (error) {
         console.log("Error while fetching session ", error)
     }
 };
+
+export const deleteProject = function* (action) {
+    try {
+        yield call(deleteProjectData, action.body);
+        const projectData = yield select(getProjectList);
+        console.log(projectData)
+        const projects = projectData.filter(project => project.id !== action.body);
+        yield put(updateProjectData(projects));
+    } catch (error) {
+        console.log("Error while fetching session ", error)
+    }
+};
+
 
 const updateProjectBody = (projectData, body) => {
     return projectData.map(project => {
@@ -48,4 +61,5 @@ const updateProjectBody = (projectData, body) => {
 export default function* projectSaga() {
     yield takeEvery(GET_PROJECTS, getProjects);
     yield takeEvery(CREATE_UPDATE_PROJECTS, createOrUpdateProjects);
+    yield takeEvery(DELETE_PROJECT, deleteProject);
 }

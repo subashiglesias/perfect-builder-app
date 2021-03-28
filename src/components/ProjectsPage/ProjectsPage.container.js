@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-    getProjects, createOrUpdateProjectData
+    getProjects, createOrUpdateProjectData, deleteProjectData
 } from '../../actions';
 import { getProjectList } from "../../utils/redux-selectors";
 
@@ -15,6 +15,9 @@ const mapDispatchToProps = dispatch => ({
     },
     createOrUpdateProjects: (body) => {
         dispatch(createOrUpdateProjectData(body));
+    },
+    deleteProject: (body) => {
+        dispatch(deleteProjectData(body));
     },
 });
 
