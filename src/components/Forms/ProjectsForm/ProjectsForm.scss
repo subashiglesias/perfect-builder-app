@@ -21,14 +21,23 @@
         }
 
         .actions {
-            position: absolute;
+            display: flex;
+            position: fixed;
             width: 100%;
-            padding: 10px 5px;
+            padding: 1rem 0;
             margin: auto;
-            text-align: center;
+            justify-content: center;
             bottom: 0;
         }
-
+    }
+    .floor {
+        input {
+            width: 6rem;
+            margin: 0 0.5rem;
+        }
+        input:first-child {
+            width: 2rem;
+        }
     }
 }
 

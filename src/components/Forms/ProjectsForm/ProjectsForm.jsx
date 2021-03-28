@@ -21,8 +21,8 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
     const renderEditable = (row, defaultValue) => {
         return (
             <input
-                id={defaultValue+row.index}
-                name={defaultValue+row.index}
+                id={defaultValue + row.index}
+                name={defaultValue + row.index}
                 type="text"
                 defaultValue={row.values[defaultValue] || ''}
                 onBlur={(event) => updateRow(row, event, defaultValue)}
@@ -30,72 +30,135 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
         );
     };
 
+    const renderFloorsEditable = (row) => {
+        const allBlocks = [...blocks];
+        const selectedBlock = allBlocks.slice(row.index, row.index+1)
+
+        return (
+            <div>
+                <span onClick={() => {
+                console.log(selectedBlock)
+                selectedBlock[0]['floors'] = [...selectedBlock[0]['floors'],{floorNo: null, name: '', ceilingHeight: ''}]
+                allBlocks.splice(row.index, 1, selectedBlock[0])
+                setBlocks(allBlocks)
+                }}>
+                    <Avatar alt="Add floor" src={addField}/>
+                </span>
+                <div className="floors">
+                    {selectedBlock[0]['floors'] && selectedBlock[0]['floors'].map(floor => {
+                        return(
+                            <div className="floor">
+                                {console.log(floor)}
+                                <input
+                                    id={"floorNo" + row.index}
+                                    name={"floorNo" + row.index}
+                                    type="text"
+                                    placeholder={"No."}
+                                    defaultValue={floor.floorNo || ''}
+                                    onBlur={() => {}}
+                                />
+                                <input
+                                    id={"name" + row.index}
+                                    name={"name" + row.index}
+                                    type="text"
+                                    placeholder={"Floor Name"}
+                                    defaultValue={floor.name || ''}
+                                    onBlur={() => {}}
+                                />
+                                <input
+                                    id={"ceilingHeight" + row.index}
+                                    name={"ceilingHeight" + row.index}
+                                    type="text"
+                                    placeholder={"Ceiling height"}
+                                    defaultValue={floor.ceilingHeight || ''}
+                                    onBlur={() => {}}
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+        // return (
+        //     <input
+        //         id={defaultValue+row.index}
+        //         name={defaultValue+row.index}
+        //         type="text"
+        //         defaultValue={row.values[defaultValue] || ''}
+        //         onBlur={(event) => updateRow(row, event, defaultValue)}
+        //     />
+        // );
+    };
+
     const updateRow = (row, event, defaultValue) => {
         event.preventDefault()
         const allBlocks = [...blocks]
-        let findFirst = true
-        if(event.target.value) {
-            allBlocks.map(block => {
-                if(findFirst && block.name === row.values.name && block.basementHeight === row.values.basementHeight && block.carParkingArea === row.values.carParkingArea && block.noOfUnits === row.values.noOfUnits) {
-                    block[defaultValue] = event.target.value;
-                    findFirst = false;
-                }
-                return block
-            })
+        if (event.target.value) {
+            console.log(allBlocks)
+            const modifiedBlock = allBlocks.slice(row.index, row.index+1)
+            modifiedBlock[0][defaultValue] = event.target.value;
+            allBlocks.splice(row.index, 1, modifiedBlock[0])
+            console.log(allBlocks)
             setBlocks(allBlocks)
         }
     }
 
     const deleteBlock = (row, allBlocks) => {
         const filteredBlocks = [...allBlocks]
-        filteredBlocks.splice(row.index,1)
+        filteredBlocks.splice(row.index, 1)
         setBlocks(filteredBlocks)
     }
 
     const columns = [
+        {
+            Header: 'Blocks',
+            columns: [
                 {
-                    Header: 'Blocks',
-                    columns: [
-                        {
-                            Header: 'Block Name',
-                            accessor: 'name',
-                            Cell: ({row}) => renderEditable(row, "name"),
-                        },
-                        {
-                            Header: 'No. of Units',
-                            accessor: 'noOfUnits',
-                            Cell: ({row}) => renderEditable(row, "noOfUnits"),
-                        },
-                        {
-                            Header: 'Car Parking Area',
-                            accessor: 'carParkingArea',
-                            Cell: ({row}) => renderEditable(row, "carParkingArea"),
-                        },
-                        {
-                            Header: 'Basement height',
-                            accessor: 'basementHeight',
-                            Cell: ({row}) => renderEditable(row, "basementHeight"),
-                        },
-                        {
-                            Header: 'Delete',
-                            Cell: ({row}) => (<span onClick={() => deleteBlock(row, blocks)}>
+                    Header: 'Block Name',
+                    accessor: 'name',
+                    Cell: ({row}) => renderEditable(row, "name"),
+                },
+                {
+                    Header: 'No. of Units',
+                    accessor: 'noOfUnits',
+                    Cell: ({row}) => renderEditable(row, "noOfUnits"),
+                },
+                {
+                    Header: 'Car Parking Area',
+                    accessor: 'carParkingArea',
+                    Cell: ({row}) => renderEditable(row, "carParkingArea"),
+                },
+                {
+                    Header: 'Basement height',
+                    accessor: 'basementHeight',
+                    Cell: ({row}) => renderEditable(row, "basementHeight"),
+                },
+                {
+                    Header: 'Floors',
+                    accessor: 'floors',
+                    Cell: ({row}) => renderFloorsEditable(row),
+                },
+                {
+                    Header: 'Delete',
+                    Cell: ({row}) => (<span onClick={() => deleteBlock(row, blocks)}>
                             <Avatar alt="Add project" src={deleteField}/>
                         </span>),
-                        },
-                    ],
                 },
-            ]
+            ],
+        },
+    ]
 
-        const formatData = (blocks) => {
-            const data = []
-            blocks.forEach(block => data.push({
-                name: block.name,
-                noOfUnits: block.noOfUnits,
-                carParkingArea: block.carParkingArea,
-                basementHeight: block.basementHeight,
-            }))
-            return data;
-        }
+    const formatData = (blocks) => {
+        const data = []
+        blocks.forEach(block => data.push({
+            name: block.name,
+            noOfUnits: block.noOfUnits,
+            carParkingArea: block.carParkingArea,
+            basementHeight: block.basementHeight,
+            floors: block.floors,
+        }))
+        return data;
+    }
 
     return (
         <div className="project-form">
@@ -103,9 +166,9 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
             <form onSubmit={handleSubmit(blocks)}>
                 <div className="content">
                     <TextBox label="Enter project Name" id={'name'} defaulValue={fieldValues.name} required/>
-                    {renderIf( () => fieldValues.id , () => (
+                    {renderIf(() => fieldValues.id, () => (
                         <TextBox label="project id" id={'id'} defaulValue={fieldValues.id} readonly/>
-                        ))}
+                    ))}
                     <TextArea label="Enter project Address" id={'address'} cols={1} rows={3}
                               defaulValue={fieldValues.address} required/>
                     <TextArea label="Enter project Comments" id={'comment'} cols={1} rows={3}
@@ -121,23 +184,26 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
                     <button className="save">Save</button>
                 </div>
             </form>
-            <div >
+            <div>
                 <h4>Blocks</h4>
                 <div className="add-new">
                 <span onClick={() => {
                     const allBlocks = [...blocks];
-                    allBlocks.push({name: '',
+                    allBlocks.push({
+                        name: '',
                         carParkingArea: '',
                         basementHeight: '',
                         noOfFloors: null,
+                        floors: [],
                         noOfUnits: '',
                     })
-                    setBlocks(allBlocks)}}>
+                    setBlocks(allBlocks)
+                }}>
                     <Avatar alt="Add project" src={addField}/>
                 </span>
                 </div>
                 <Styles>
-                    <ReactTable columns={columns} data={formatData(blocks)} />
+                    <ReactTable columns={columns} data={formatData(blocks)}/>
                 </Styles>
             </div>
         </div>
