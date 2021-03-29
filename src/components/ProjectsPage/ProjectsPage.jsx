@@ -86,10 +86,6 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects, dele
                         accessor: 'projectBlocksCount',
                     },
                     {
-                        Header: 'Floors Count',
-                        accessor: 'projectFloorsCount',
-                    },
-                    {
                         Header: 'Created By',
                         accessor: 'createdBy',
                     },
@@ -120,7 +116,6 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects, dele
             projectId: project.id,
             projectAddress: project.address,
             projectBlocksCount: project.noOfBlocks,
-            projectFloorsCount: 'yet to implement',
             createdBy: project.createdBy,
             createdDate: project.createdDate,
         }))
