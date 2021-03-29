@@ -8,10 +8,14 @@ import {
 } from "@material-ui/core/styles";
 import Tab from '@material-ui/core/Tab';
 import {TabPanel, TabContext} from '@material-ui/lab';
-import './ProjectHomePage.scss'
+import './AdminAddHomePage.scss'
 import ProjectsPage from "../ProjectsPage";
+import ItemsPage from "../ItemsPage";
+import VendorsPage from "../VendorsPage";
+import ContractorsPage from "../ContractorsPage";
+import CustomersPage from "../CustomersPage";
 
-const ProjectHomePage = () => {
+const AdminAddHomePage = () => {
     const [value, setValue] = useState("1");
 
     const handleChange = (event, newValue) => {
@@ -41,13 +45,21 @@ const ProjectHomePage = () => {
                 <TabContext value={value}>
                     <AppBar position="static" className={classes.customizeToolbar}>
                         <TabList onChange={handleChange} aria-label="Group of screens">
-                            <Tab label="Projects" value="1"/>
+                            <Tab label="Items" value="1"/>
+                            <Tab label="Vendors" value="2"/>
+                            <Tab label="Contractors" value="3"/>
+                            <Tab label="Projects" value="4"/>
+                            <Tab label="Customers" value="5"/>
                         </TabList>
                     </AppBar>
-                    <TabPanel value="1"> <ProjectsPage/> </TabPanel>
+                    <TabPanel value="1"> <ItemsPage/> </TabPanel>
+                    <TabPanel value="2"> <VendorsPage/> </TabPanel>
+                    <TabPanel value="3"> <ContractorsPage/> </TabPanel>
+                    <TabPanel value="4"> <ProjectsPage/> </TabPanel>
+                    <TabPanel value="5"> <CustomersPage/> </TabPanel>
                 </TabContext>
             </ThemeProvider>
         </div>)
 }
 
-export default ProjectHomePage;
+export default AdminAddHomePage;

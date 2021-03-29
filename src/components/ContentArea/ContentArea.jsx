@@ -4,13 +4,13 @@ import Loadable from 'react-loadable';
 import DummyLoader from './DummyLoader';
 import config from '../../config';
 import {RouterPaths} from "../../constants";
-import ProjectHomePage from "../ProjectHomePage";
+import AdminAddHomePage from "../AdminAddHomePage";
 import LandingPage from "../LandingPage";
 import './ContentArea.scss';
 import ForbiddenPage from "../ForbiddenPage";
 
 const ProjectHomePageComponent = Loadable({
-    loader: async () => ProjectHomePage,
+    loader: async () => AdminAddHomePage,
     loading: DummyLoader,
 });
 
