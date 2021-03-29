@@ -63,7 +63,7 @@ const ContractorsPage = ({contractorList, getAllContractors, createOrUpdateContr
                 },
                 {
                     Header: 'Email Id',
-                    accessor: 'email',
+                    accessor: 'emailId',
                 },
                 {
                     Header: 'Created By',
@@ -96,7 +96,7 @@ const ContractorsPage = ({contractorList, getAllContractors, createOrUpdateContr
             contractorId: contractor.id,
             workType: contractor.workType,
             mobile: contractor.mobile,
-            email: contractor.email,
+            emailId: contractor.emailId,
             createdBy: contractor.createdBy,
             createdDate: contractor.createdDate,
         }))
