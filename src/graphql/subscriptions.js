@@ -82,3 +82,48 @@ export const onDeleteProject = /* GraphQL */ `
     }
   }
 `;
+export const onCreateContractor = /* GraphQL */ `
+  subscription OnCreateContractor {
+    onCreateContractor {
+      id
+      name
+      workType
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateContractor = /* GraphQL */ `
+  subscription OnUpdateContractor {
+    onUpdateContractor {
+      id
+      name
+      workType
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteContractor = /* GraphQL */ `
+  subscription OnDeleteContractor {
+    onDeleteContractor {
+      id
+      name
+      workType
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;

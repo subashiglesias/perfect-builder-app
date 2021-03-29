@@ -32,7 +32,7 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects, dele
 
     const editRow = (row, allProjects) => {
         allProjects.forEach(async project => {
-            if(project.name === row.values.projectName) {
+            if(project.id === row.values.projectId) {
                 await setEditProject(project)
                 toggleEditModal()
             }

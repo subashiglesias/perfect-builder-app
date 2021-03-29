@@ -1,0 +1,22 @@
+.contractors-page {
+  display: flex;
+  justify-content: center;
+  height: 50rem;
+
+  .MuiTabs-vertical {
+    min-width: 10rem;
+  }
+
+  .MuiAvatar-img {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+  }
+
+  .add-new {
+    .MuiAvatar-img {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}

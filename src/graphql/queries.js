@@ -46,13 +46,45 @@ export const listProjects = /* GraphQL */ `
           carParkingArea
           noOfUnits
           noOfFloors
-          floors {
-          name
-          floorNo
-          ceilingHeight
-          }
           basementHeight
         }
+        createdBy
+        createdDate
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getContractor = /* GraphQL */ `
+  query GetContractor($id: ID!) {
+    getContractor(id: $id) {
+      id
+      name
+      workType
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listContractors = /* GraphQL */ `
+  query ListContractors(
+    $filter: ModelContractorFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listContractors(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        workType
+        mobile
+        emailId
         createdBy
         createdDate
         createdAt
