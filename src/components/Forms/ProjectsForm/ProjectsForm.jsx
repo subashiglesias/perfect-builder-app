@@ -5,18 +5,13 @@ import TextBox from "../../TextBox";
 import TextArea from "../../TextArea";
 import {Avatar} from "@material-ui/core";
 import addField from "../../../images/add_box.svg";
+import removeField from "../../../images/remove-black.svg";
 import Styles from "../../ReactTable/Styles/Styles";
 import ReactTable from "../../ReactTable";
 import deleteField from "../../../images/delete-black.svg";
 
 const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
-    const [value, setValue] = useState(0);
     const [blocks, setBlocks] = useState(fieldValues.blocks || []);
-
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
     const renderEditable = (row, defaultValue) => {
         return (
@@ -25,7 +20,7 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
                 name={defaultValue + row.index}
                 type="text"
                 defaultValue={row.values[defaultValue] || ''}
-                onBlur={(event) => updateRow(row, event, defaultValue)}
+                onBlur={(event) => updateBlock(row, event, defaultValue)}
             />
         );
     };
@@ -36,61 +31,52 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
 
         return (
             <div>
-                <span onClick={() => {
-                console.log(selectedBlock)
-                selectedBlock[0]['floors'] = [...selectedBlock[0]['floors'],{floorNo: null, name: '', ceilingHeight: ''}]
-                allBlocks.splice(row.index, 1, selectedBlock[0])
-                setBlocks(allBlocks)
-                }}>
-                    <Avatar alt="Add floor" src={addField}/>
+                <span>
+                    <Avatar alt="Add floor" src={addField} onClick={() => {
+                        console.log(selectedBlock)
+                        selectedBlock[0]['floors'] = [...selectedBlock[0]['floors'],{floorNo: null, name: '', ceilingHeight: ''}]
+                        allBlocks.splice(row.index, 1, selectedBlock[0])
+                        setBlocks(allBlocks)
+                    }}/>
                 </span>
                 <div className="floors">
-                    {selectedBlock[0]['floors'] && selectedBlock[0]['floors'].map(floor => {
+                    {selectedBlock[0]['floors'] && selectedBlock[0]['floors'].map((floor, index) => {
                         return(
                             <div className="floor">
-                                {console.log(floor)}
                                 <input
-                                    id={"floorNo" + row.index}
-                                    name={"floorNo" + row.index}
-                                    type="text"
+                                    id={"floorNo" + index}
+                                    name={"floorNo" + index}
+                                    type="number"
                                     placeholder={"No."}
-                                    defaultValue={floor.floorNo || ''}
-                                    onBlur={() => {}}
+                                    defaultValue={isNaN(floor.floorNo) ? null : floor.floorNo}
+                                    onBlur={(event) => {updateFloor(row, index, event, "floorNo" )}}
                                 />
                                 <input
-                                    id={"name" + row.index}
-                                    name={"name" + row.index}
+                                    id={"name" + index}
+                                    name={"name" + index}
                                     type="text"
                                     placeholder={"Floor Name"}
                                     defaultValue={floor.name || ''}
-                                    onBlur={() => {}}
+                                    onBlur={(event) => {updateFloor(row, index, event, "name" )}}
                                 />
                                 <input
-                                    id={"ceilingHeight" + row.index}
-                                    name={"ceilingHeight" + row.index}
+                                    id={"ceilingHeight" + index}
+                                    name={"ceilingHeight" + index}
                                     type="text"
                                     placeholder={"Ceiling height"}
                                     defaultValue={floor.ceilingHeight || ''}
-                                    onBlur={() => {}}
+                                    onBlur={(event) => {updateFloor(row, index, event, "ceilingHeight" )}}
                                 />
+                                <Avatar alt="Add floor" src={removeField} onClick={() => deleteFloor(row, allBlocks, index)}/>
                             </div>
                         )
                     })}
                 </div>
             </div>
         )
-        // return (
-        //     <input
-        //         id={defaultValue+row.index}
-        //         name={defaultValue+row.index}
-        //         type="text"
-        //         defaultValue={row.values[defaultValue] || ''}
-        //         onBlur={(event) => updateRow(row, event, defaultValue)}
-        //     />
-        // );
     };
 
-    const updateRow = (row, event, defaultValue) => {
+    const updateBlock = (row, event, defaultValue) => {
         event.preventDefault()
         const allBlocks = [...blocks]
         if (event.target.value) {
@@ -103,10 +89,30 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
         }
     }
 
+    const updateFloor = (row, index, event, defaultValue) => {
+        event.preventDefault()
+        const allBlocks = [...blocks]
+        if (event.target.value) {
+            const modifiedBlock = allBlocks.slice(row.index, row.index+1)
+            const floor = modifiedBlock[0]["floors"].slice(index, index+1);
+            floor[0][defaultValue] = event.target.value;
+            modifiedBlock[0]["floors"].splice(index, 1, floor[0])
+            allBlocks.splice(row.index, 1, modifiedBlock[0])
+            setBlocks(allBlocks)
+        }
+    }
+
     const deleteBlock = (row, allBlocks) => {
         const filteredBlocks = [...allBlocks]
         filteredBlocks.splice(row.index, 1)
         setBlocks(filteredBlocks)
+    }
+
+    const deleteFloor = (row, allBlocks, floorIndex) => {
+        const selectedBlock = allBlocks.slice(row.index, row.index+1)
+        selectedBlock[0]["floors"].splice(floorIndex, 1)
+        allBlocks.splice(row.index, 1, selectedBlock[0])
+        setBlocks(allBlocks)
     }
 
     const columns = [
@@ -184,22 +190,22 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
                     <button className="save">Save</button>
                 </div>
             </form>
-            <div>
+            <div className="blocks">
                 <h4>Blocks</h4>
                 <div className="add-new">
-                <span onClick={() => {
-                    const allBlocks = [...blocks];
-                    allBlocks.push({
-                        name: '',
-                        carParkingArea: '',
-                        basementHeight: '',
-                        noOfFloors: null,
-                        floors: [],
-                        noOfUnits: '',
-                    })
-                    setBlocks(allBlocks)
-                }}>
-                    <Avatar alt="Add project" src={addField}/>
+                <span>
+                    <Avatar alt="Add project" src={addField} onClick={() => {
+                        const allBlocks = [...blocks];
+                        allBlocks.push({
+                            name: '',
+                            carParkingArea: '',
+                            basementHeight: '',
+                            noOfFloors: null,
+                            floors: [],
+                            noOfUnits: '',
+                        })
+                        setBlocks(allBlocks)
+                    }}/>
                 </span>
                 </div>
                 <Styles>

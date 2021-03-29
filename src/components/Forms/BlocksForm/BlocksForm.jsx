@@ -9,11 +9,8 @@ const BlocksForm = ({blockValues, setBlocksValues}) => {
         event.preventDefault();
         const form = event.target;
         const body = createNewBlockBody(new FormData(form));
-        console.log(body)
-        console.log(blockValues)
         const blockUpdate = [...blockValues]
         blockUpdate.push(body)
-        console.log(blockUpdate)
         setBlocksValues(blockUpdate);
         event.stopPropagation();
     }

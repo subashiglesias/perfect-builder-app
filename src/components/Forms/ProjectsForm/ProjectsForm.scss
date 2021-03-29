@@ -39,5 +39,29 @@
             width: 2rem;
         }
     }
+
+    .add-new {
+        .MuiAvatar-img {
+            cursor: pointer;
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    .floor {
+        display: flex;
+        align-items: center;
+        .MuiAvatar-img {
+            cursor: pointer;
+            width: 1rem;
+            height: 1rem;
+        }
+    }
+
+    .MuiAvatar-img {
+        cursor: pointer;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 }
 
