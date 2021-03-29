@@ -18,8 +18,8 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
             <input
                 id={defaultValue + row.index}
                 name={defaultValue + row.index}
-                type="text"
-                defaultValue={row.values[defaultValue] || ''}
+                type={defaultValue === "name" ? "text" : "number"}
+                defaultValue={defaultValue === "name" ? row.values[defaultValue] || '' : isNaN(row.values[defaultValue]) ? null : row.values[defaultValue]}
                 onBlur={(event) => updateBlock(row, event, defaultValue)}
             />
         );
@@ -196,18 +196,17 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
                 </div>
             </form>
             <div className="blocks">
-                <h4>Blocks</h4>
                 <div className="add-new">
                 <span>
                     <Avatar alt="Add project" src={addField} onClick={() => {
                         const allBlocks = [...blocks];
                         allBlocks.push({
                             name: '',
-                            carParkingArea: '',
-                            basementHeight: '',
+                            carParkingArea: null,
+                            basementHeight: null,
                             noOfFloors: null,
                             floors: [],
-                            noOfUnits: '',
+                            noOfUnits: null,
                         })
                         setBlocks(allBlocks)
                     }}/>
