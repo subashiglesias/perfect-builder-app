@@ -2,9 +2,11 @@ import { connect } from 'react-redux';
 import {
     getCurrentSession
 } from '../../actions';
+import {getPageLoading} from "../../utils/redux-selectors";
 
 const mapStateToProps = state => ({
     currentSession: state.authReducer.currentSession,
+    pageLoading: getPageLoading(state),
 });
 
 

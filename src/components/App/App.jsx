@@ -5,7 +5,7 @@ import Appinfo from "../AppInfo";
 import ContentArea from "../ContentArea";
 
 
-const App = () => {
+const App = ({pageLoading}) => {
     return (
         <div className="App">
             <Appinfo/>

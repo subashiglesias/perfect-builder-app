@@ -8,6 +8,7 @@ import AdminAddHomePage from "../AdminAddHomePage";
 import LandingPage from "../LandingPage";
 import './ContentArea.scss';
 import ForbiddenPage from "../ForbiddenPage";
+import PageLoaderOverlay from "../PageLoaderOverlay";
 
 const ProjectHomePageComponent = Loadable({
     loader: async () => AdminAddHomePage,
@@ -26,7 +27,7 @@ const ForbiddenPageComponent = Loadable({
 
 const getPath = path => config.appRoute + path;
 
-const ContentArea = ({getSession, currentSession}) => {
+const ContentArea = ({getSession, currentSession, pageLoading}) => {
 
     useEffect(() => {
         if(!Object.keys(currentSession).length){
@@ -36,6 +37,7 @@ const ContentArea = ({getSession, currentSession}) => {
 
     return (
     <div className="content-area">
+        <PageLoaderOverlay active={pageLoading} />
         <Switch>
             <Route exact path={getPath(RouterPaths.ROOT)} component={LandingPageComponent}/>
             <Route path={getPath(RouterPaths.PROJECTS)} component={ProjectHomePageComponent}/>
