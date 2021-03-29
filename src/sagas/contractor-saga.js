@@ -39,10 +39,10 @@ export const deleteContractor = function* (action) {
     try {
         yield put(activatePageLoader());
         yield call(deleteContractorData, action.body);
-        const projectData = yield select(getContractorList);
-        console.log(projectData)
-        const projects = projectData.filter(project => project.id !== action.body);
-        yield put(updateProjectData(projects));
+        const contractorData = yield select(getContractorList);
+        console.log(contractorData)
+        const contractors = contractorData.filter(contractor => contractor.id !== action.body);
+        yield put(updateContractorData(contractors));
     } catch (error) {
         console.log("Error while fetching session ", error)
     }
