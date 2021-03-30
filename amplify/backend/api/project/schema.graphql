@@ -53,12 +53,13 @@ type Item
 @auth(
   rules: [
     { allow: groups, groups: ["Managers"], queries: [get, list], mutations: [create, update, delete] }
-    { allow: groups, groups: ["Employees"], queries: [get, list], mutations: [] }
+    { allow: groups, groups: ["Employees"], queries: [get, list], mutations: [create] }
   ]
 ) {
   id: ID!
   name: String
   itemType: String
+  rate: Int
   gst: Boolean
   cgst: Int
   sgst: Int

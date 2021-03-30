@@ -8,6 +8,12 @@ export const CREATE_UPDATE_PROJECTS = "create_update_projects"
 export const DELETE_PROJECT = "delete_projects"
 export const UPDATE_PROJECTS = "update_projects"
 
+// Items
+export const GET_ITEMS = "get_items"
+export const CREATE_UPDATE_ITEMS = "create_update_items"
+export const DELETE_ITEM = "delete_items"
+export const UPDATE_ITEMS = "update_items"
+
 // Contractors
 export const GET_CONTRACTORS = "get_contractors"
 export const CREATE_UPDATE_CONTRACTORS = "create_update_contractors"

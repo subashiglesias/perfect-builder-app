@@ -154,6 +154,7 @@ export const createItem = /* GraphQL */ `
       id
       name
       itemType
+      rate
       gst
       cgst
       sgst
@@ -175,6 +176,7 @@ export const updateItem = /* GraphQL */ `
       id
       name
       itemType
+      rate
       gst
       cgst
       sgst
@@ -196,6 +198,7 @@ export const deleteItem = /* GraphQL */ `
       id
       name
       itemType
+      rate
       gst
       cgst
       sgst

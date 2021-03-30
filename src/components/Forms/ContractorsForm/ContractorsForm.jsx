@@ -2,7 +2,8 @@ import React from 'react';
 import './ContractorsForm.scss'
 import {renderIf} from "../../../utils/helpers";
 import TextBox from "../../TextBox";
-import AutoDropDown from "../../AutoDropDown/AutoDropDown";
+import SelectField from "../../SelectField/SelectField";
+import {ContractList} from "../../../constants";
 
 const ContractorsForm = ({handleSubmit, dialog, fieldValues}) => {
 
@@ -15,15 +16,9 @@ const ContractorsForm = ({handleSubmit, dialog, fieldValues}) => {
                     {renderIf(() => fieldValues.id, () => (
                         <TextBox label="Contractor id" id={'id'} defaulValue={fieldValues.id} readonly/>
                     ))}
-                    <AutoDropDown label="Enter work type" id={'workType'} required defaulValue={fieldValues.workType} options={[
-                        "Civil contract",
-                        "Plumbing contract",
-                        "Electrical contract",
-                        "Painting contract",
-                        "Carpentry contract",
-                        "Tiles contract"
-                    ]} />
-                    <TextBox label="Enter mobile number" type={"number"} id={'mobile'} defaulValue={fieldValues.mobile} required/>
+                    <SelectField label="Select work type" id={'workType'} required defaulValue={fieldValues.workType} optionsLabel={ContractList} optionsValue={ContractList} updateHandler={() => {}}/>
+                    <TextBox label="Enter mobile number" type={"number"} id={'mobile'} defaulValue={fieldValues.mobile}
+                             required/>
                     <TextBox label="Enter email Id" id={'emailId'} defaulValue={fieldValues.emailId} required/>
                 </div>
                 {renderIf(() => dialog, () => (

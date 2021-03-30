@@ -1,0 +1,14 @@
+.select-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  select {
+    width: 20rem;
+  }
+
+  label {
+    display: flex;
+    justify-content: flex-start;
+  }
+}

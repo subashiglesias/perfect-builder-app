@@ -105,6 +105,7 @@ export const getItem = /* GraphQL */ `
       id
       name
       itemType
+      rate
       gst
       cgst
       sgst
@@ -128,6 +129,7 @@ export const listItems = /* GraphQL */ `
         id
         name
         itemType
+        rate
         gst
         cgst
         sgst

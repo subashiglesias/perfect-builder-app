@@ -18,6 +18,44 @@ const Descriptions = {
     CLIENT: "Click here to navigate to client section.  You can add new or edit existing forms related to Client",
 }
 
+const ContractList = [
+    "Civil contract",
+    "Plumbing contract",
+    "Electrical contract",
+    "Painting contract",
+    "Carpentry contract",
+    "Tiles contract"
+]
+
+const ItemTypeList = [
+    "Civil",
+    "Electrical",
+    "Plumbing",
+    "Painting",
+    "Carpentry",
+    "Tile",
+    "Brick",
+    "Sand",
+    "Steel",
+    "Wood",
+    "Upvc window",
+    "Water",
+    "Bore",
+    "Concrete",
+    "Cement",
+    "Waterproof",
+    "Blue metal",
+    "Grill",
+    "Weathering",
+    "Lift",
+    "Motor",
+    "Salary and allowance",
+    "Rent",
+    "Interest payment",
+    "Petrol Expense",
+    "Extra expense",
+]
+
 const ButtonTypes = {
     PRIMARY: 'primary',
     REVERSE: 'reverse',
@@ -34,4 +72,6 @@ export {
     ButtonTypes,
     RouterPaths,
     Descriptions,
+    ContractList,
+    ItemTypeList
 };
