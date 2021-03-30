@@ -15,7 +15,7 @@ const ContractorsForm = ({handleSubmit, dialog, fieldValues}) => {
                     {renderIf(() => fieldValues.id, () => (
                         <TextBox label="Contractor id" id={'id'} defaulValue={fieldValues.id} readonly/>
                     ))}
-                    <AutoDropDown label="Enter work type" id={'workType'} defaulValue={fieldValues.workType} options={[
+                    <AutoDropDown label="Enter work type" id={'workType'} required defaulValue={fieldValues.workType} options={[
                         "Civil contract",
                         "Plumbing contract",
                         "Electrical contract",

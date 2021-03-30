@@ -11,7 +11,7 @@ import ContractorsForm from "../../Forms/ContractorsForm";
 var moment = require('moment'); // require
 
 
-const ContractorsPage = ({contractorList, getAllContractors, createOrUpdateContractor, deleteContractor}) => {
+const ContractorsPage = ({contractorList, getAllContractors, createOrUpdateContractor, deleteContractor, username}) => {
     const [dialog, setDialog] = useState('');
     const [editContractor, setEditContractor] = useState({});
     const [openModal, setOpenModal] = useState(false);
@@ -118,7 +118,7 @@ const ContractorsPage = ({contractorList, getAllContractors, createOrUpdateContr
             workType: formValues.get('workType'),
             mobile: formValues.get('mobile'),
             emailId: formValues.get('emailId'),
-            createdBy: "Bob cane",
+            createdBy: username,
             createdDate: moment().format('DD/MM/YYYY'),
         }
     }

@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import {
     getContractors, createOrUpdateContractorData, deleteContractorData
 } from '../../../actions';
-import { getContractorList } from "../../../utils/redux-selectors";
+import {getContractorList, getUserName} from "../../../utils/redux-selectors";
 
 const mapStateToProps = state => ({
+    username: getUserName(state),
     contractorList: getContractorList(state),
 });
 

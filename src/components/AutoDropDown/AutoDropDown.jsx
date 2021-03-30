@@ -36,6 +36,21 @@ export class AutoDropDown extends Component {
             userInput: e.currentTarget.innerText
         });
     };
+    onBlur = (e) => {
+        const {options} = this.props;
+        const userInput = e.currentTarget.value;
+
+        const filteredOptions = options.filter(
+            (optionName) =>
+                optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        );
+        this.setState({
+            activeOption: 0,
+            filteredOptions,
+            showOptions: !!filteredOptions[0],
+            userInput: filteredOptions[0] ? filteredOptions[0] : options[0]
+        });
+    }
     onKeyDown = (e) => {
         const {activeOption, filteredOptions} = this.state;
 
@@ -64,6 +79,7 @@ export class AutoDropDown extends Component {
             onChange,
             onClick,
             onKeyDown,
+            onBlur,
 
             state: {activeOption, filteredOptions, showOptions, userInput}
         } = this;
@@ -107,6 +123,8 @@ export class AutoDropDown extends Component {
                             value={userInput !== "" ? userInput : null}
                             defaultValue={this.props.defaulValue}
                             autoComplete="off"
+                            required={this.props.required}
+                            onBlur={onBlur}
                         />
                     </div>
                     {optionList}
