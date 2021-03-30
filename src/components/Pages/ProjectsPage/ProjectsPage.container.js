@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import {
     getProjects, createOrUpdateProjectData, deleteProjectData
-} from '../../actions';
-import { getProjectList } from "../../utils/redux-selectors";
+} from '../../../actions';
+import {getProjectList, getUserName} from "../../../utils/redux-selectors";
 
 const mapStateToProps = state => ({
+    username: getUserName(state),
     projectList: getProjectList(state),
 });
 

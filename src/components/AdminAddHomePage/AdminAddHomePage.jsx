@@ -9,11 +9,11 @@ import {
 import Tab from '@material-ui/core/Tab';
 import {TabPanel, TabContext} from '@material-ui/lab';
 import './AdminAddHomePage.scss'
-import ProjectsPage from "../ProjectsPage";
-import ItemsPage from "../ItemsPage";
-import VendorsPage from "../VendorsPage";
-import ContractorsPage from "../ContractorsPage";
-import CustomersPage from "../CustomersPage";
+import ProjectsPage from "../Pages/ProjectsPage";
+import ItemsPage from "../Pages/ItemsPage";
+import VendorsPage from "../Pages/VendorsPage";
+import ContractorsPage from "../Pages/ContractorsPage";
+import CustomersPage from "../Pages/CustomersPage";
 
 const AdminAddHomePage = () => {
     const [value, setValue] = useState("1");

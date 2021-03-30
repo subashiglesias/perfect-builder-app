@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import './ContractorsPage.scss';
 import {Avatar} from "@material-ui/core";
-import addField from "../../images/add_box.svg";
-import Styles from "../ReactTable/Styles/Styles";
-import ReactTable from "../ReactTable";
+import addField from "../../../images/add_box.svg";
+import Styles from "../../ReactTable/Styles/Styles";
+import ReactTable from "../../ReactTable";
 import Modal from "react-modal";
-import editField from "../../images/edit-black.svg";
-import deleteField from "../../images/delete-black.svg";
-import ContractorsForm from "../Forms/ContractorsForm";
+import editField from "../../../images/edit-black.svg";
+import deleteField from "../../../images/delete-black.svg";
+import ContractorsForm from "../../Forms/ContractorsForm";
 var moment = require('moment'); // require
 
 

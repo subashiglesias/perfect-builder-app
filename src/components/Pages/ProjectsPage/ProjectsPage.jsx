@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import './ProjectsPage.scss';
 import 'reactjs-popup/dist/index.css';
-import ReactTable from "../ReactTable";
-import Styles from "../ReactTable/Styles/Styles";
-import editField from "../../images/edit-black.svg";
-import deleteField from "../../images/delete-black.svg";
-import addField from "../../images/add_box.svg";
+import ReactTable from "../../ReactTable";
+import Styles from "../../ReactTable/Styles/Styles";
+import editField from "../../../images/edit-black.svg";
+import deleteField from "../../../images/delete-black.svg";
+import addField from "../../../images/add_box.svg";
 import {Avatar} from "@material-ui/core";
 import Modal from 'react-modal';
-import ProjectsForm from "../Forms/ProjectsForm";
+import ProjectsForm from "../../Forms/ProjectsForm";
 
 
 var moment = require('moment'); // require
 
 
-const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects, deleteProject}) => {
+const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects, deleteProject, username}) => {
     const [dialog, setDialog] = useState('');
     const [editProject, setEditProject] = useState({});
     const [openModal, setOpenModal] = useState(false);
@@ -60,7 +60,7 @@ const ProjectsPage = ({projectList, getAllProjects, createOrUpdateProjects, dele
             comments: formValues.get('comment'),
             noOfBlocks: blocks.length,
             blocks: blocks,
-            createdBy: "Bob cane",
+            createdBy: username,
             createdDate: moment().format('DD/MM/YYYY'),
         }
     }
