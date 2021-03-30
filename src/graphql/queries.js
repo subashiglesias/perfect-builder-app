@@ -46,6 +46,11 @@ export const listProjects = /* GraphQL */ `
           carParkingArea
           noOfUnits
           noOfFloors
+          floors {
+            name
+            floorNo
+            ceilingHeight
+          }
           basementHeight
         }
         createdBy

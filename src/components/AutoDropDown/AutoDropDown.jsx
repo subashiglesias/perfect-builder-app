@@ -97,13 +97,15 @@ export class AutoDropDown extends Component {
             <React.Fragment>
                 <div className="auto-drop-down">
                     <div className="search">
+                        <label htmlFor="name">{this.props.label}</label>
                         <input
                             type="text"
                             id={this.props.id}
                             name={this.props.id}
                             onChange={onChange}
                             onKeyDown={onKeyDown}
-                            value={userInput ? userInput : this.props.defaulValue}
+                            value={userInput !== "" ? userInput : null}
+                            defaultValue={this.props.defaulValue}
                             autoComplete="off"
                         />
                     </div>

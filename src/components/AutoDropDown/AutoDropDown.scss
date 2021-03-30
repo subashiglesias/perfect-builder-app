@@ -1,10 +1,14 @@
 .auto-drop-down {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   .search {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
     input {
       width: 20rem;
+    }
+    label {
+      display: flex;
+      justify-content: flex-start;
     }
   }
 }

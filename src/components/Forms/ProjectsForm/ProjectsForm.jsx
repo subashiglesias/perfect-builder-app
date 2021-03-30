@@ -163,7 +163,7 @@ const ProjectsForm = ({handleSubmit, dialog, fieldValues}) => {
         blocks.forEach(block => data.push({
             name: block.name,
             noOfUnits: block.noOfUnits,
-            noOfFloors: block.floors.length,
+            noOfFloors: block.floors && block.floors.length,
             carParkingArea: block.carParkingArea,
             basementHeight: block.basementHeight,
             floors: block.floors,

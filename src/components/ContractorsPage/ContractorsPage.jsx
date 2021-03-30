@@ -107,7 +107,8 @@ const ContractorsPage = ({contractorList, getAllContractors, createOrUpdateContr
         event.preventDefault();
         const form = event.target;
         const body = createNewContractorBody(new FormData(form));
-        createOrUpdateContractor(body)
+        createOrUpdateContractor(body);
+        toggleEditModal();
     };
 
     const createNewContractorBody = (formValues) => {

@@ -12,19 +12,17 @@ const ContractorsForm = ({handleSubmit, dialog, fieldValues}) => {
             <form onSubmit={handleSubmit}>
                 <div className="content">
                     <TextBox label="Enter Contractor Name" id={'name'} defaulValue={fieldValues.name} required/>
-                    {renderIf(() => false, () => (
+                    {renderIf(() => fieldValues.id, () => (
                         <TextBox label="Contractor id" id={'id'} defaulValue={fieldValues.id} readonly/>
                     ))}
-                    <AutoDropDown id={'workType'} defaulValue={fieldValues.workType} options={[
-                        "Contractor (Plumbing)",
-                        "Contractor (Electrical)",
-                        "Contractor (Painting)",
-                        "Contractor (Carpentry)",
-                        "Security Gate",
-                        "Security Mall",
-                        "Pineapple"
+                    <AutoDropDown label="Enter work type" id={'workType'} defaulValue={fieldValues.workType} options={[
+                        "Civil contract",
+                        "Plumbing contract",
+                        "Electrical contract",
+                        "Painting contract",
+                        "Carpentry contract",
+                        "Tiles contract"
                     ]} />
-                    {/*<TextBox label="Enter Work Type" id={'workType'} defaulValue={fieldValues.workType} required/>*/}
                     <TextBox label="Enter mobile number" type={"number"} id={'mobile'} defaulValue={fieldValues.mobile} required/>
                     <TextBox label="Enter email Id" id={'emailId'} defaulValue={fieldValues.emailId} required/>
                 </div>
