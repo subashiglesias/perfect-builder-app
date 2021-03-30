@@ -10,7 +10,7 @@ export class AutoDropDown extends Component {
     };
 
     onChange = (e) => {
-        console.log('onChanges');
+        console.log('onChanges ', e.currentTarget.value);
 
         const {options} = this.props;
         const userInput = e.currentTarget.value;
@@ -22,7 +22,7 @@ export class AutoDropDown extends Component {
 
         this.setState({
             activeOption: 0,
-            filteredOptions,
+            filteredOptions: userInput === "" ? options : filteredOptions,
             showOptions: true,
             userInput: e.currentTarget.value
         });

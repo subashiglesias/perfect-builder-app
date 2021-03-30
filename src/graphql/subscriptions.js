@@ -127,3 +127,57 @@ export const onDeleteContractor = /* GraphQL */ `
     }
   }
 `;
+export const onCreateItem = /* GraphQL */ `
+  subscription OnCreateItem {
+    onCreateItem {
+      id
+      name
+      itemType
+      gst
+      cgst
+      sgst
+      igst
+      description
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateItem = /* GraphQL */ `
+  subscription OnUpdateItem {
+    onUpdateItem {
+      id
+      name
+      itemType
+      gst
+      cgst
+      sgst
+      igst
+      description
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteItem = /* GraphQL */ `
+  subscription OnDeleteItem {
+    onDeleteItem {
+      id
+      name
+      itemType
+      gst
+      cgst
+      sgst
+      igst
+      description
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;

@@ -99,3 +99,46 @@ export const listContractors = /* GraphQL */ `
     }
   }
 `;
+export const getItem = /* GraphQL */ `
+  query GetItem($id: ID!) {
+    getItem(id: $id) {
+      id
+      name
+      itemType
+      gst
+      cgst
+      sgst
+      igst
+      description
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listItems = /* GraphQL */ `
+  query ListItems(
+    $filter: ModelItemFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        itemType
+        gst
+        cgst
+        sgst
+        igst
+        description
+        createdBy
+        createdDate
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
