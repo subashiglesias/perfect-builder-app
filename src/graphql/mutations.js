@@ -154,26 +154,7 @@ export const createItem = /* GraphQL */ `
       id
       name
       itemType
-      itemUnit {
-        no
-        meter
-        milliMeter
-        length
-        feet
-        inch
-        kg
-        gram
-        milliGram
-        ton
-        litre
-        milliLitre
-        dozen
-        coil
-        squareFeet
-        cubicFeet
-        squareMeter
-        cubicMeter
-      }
+      itemUnit
       rate
       gst
       cgst
@@ -196,26 +177,7 @@ export const updateItem = /* GraphQL */ `
       id
       name
       itemType
-      itemUnit {
-        no
-        meter
-        milliMeter
-        length
-        feet
-        inch
-        kg
-        gram
-        milliGram
-        ton
-        litre
-        milliLitre
-        dozen
-        coil
-        squareFeet
-        cubicFeet
-        squareMeter
-        cubicMeter
-      }
+      itemUnit
       rate
       gst
       cgst
@@ -238,32 +200,73 @@ export const deleteItem = /* GraphQL */ `
       id
       name
       itemType
-      itemUnit {
-        no
-        meter
-        milliMeter
-        length
-        feet
-        inch
-        kg
-        gram
-        milliGram
-        ton
-        litre
-        milliLitre
-        dozen
-        coil
-        squareFeet
-        cubicFeet
-        squareMeter
-        cubicMeter
-      }
+      itemUnit
       rate
       gst
       cgst
       sgst
       igst
       description
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createVendor = /* GraphQL */ `
+  mutation CreateVendor(
+    $input: CreateVendorInput!
+    $condition: ModelVendorConditionInput
+  ) {
+    createVendor(input: $input, condition: $condition) {
+      id
+      name
+      itemType
+      gsTin
+      address
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateVendor = /* GraphQL */ `
+  mutation UpdateVendor(
+    $input: UpdateVendorInput!
+    $condition: ModelVendorConditionInput
+  ) {
+    updateVendor(input: $input, condition: $condition) {
+      id
+      name
+      itemType
+      gsTin
+      address
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteVendor = /* GraphQL */ `
+  mutation DeleteVendor(
+    $input: DeleteVendorInput!
+    $condition: ModelVendorConditionInput
+  ) {
+    deleteVendor(input: $input, condition: $condition) {
+      id
+      name
+      itemType
+      gsTin
+      address
+      mobile
+      emailId
       createdBy
       createdDate
       createdAt

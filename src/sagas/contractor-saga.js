@@ -2,7 +2,6 @@ import { call, takeEvery, select, put } from 'redux-saga/effects';
 import {getContractorData, createOrUpdateContractorData, deleteContractorData} from '../api/contractor';
 import {
     activatePageLoader, deactivatePageLoader, updateContractorData,
-    updateProjectData,
 } from '../actions';
 import {CREATE_UPDATE_CONTRACTORS, DELETE_CONTRACTOR, GET_CONTRACTORS} from "../actions/types";
 import { getContractorList } from "../utils/redux-selectors";

@@ -133,26 +133,7 @@ export const onCreateItem = /* GraphQL */ `
       id
       name
       itemType
-      itemUnit {
-        no
-        meter
-        milliMeter
-        length
-        feet
-        inch
-        kg
-        gram
-        milliGram
-        ton
-        litre
-        milliLitre
-        dozen
-        coil
-        squareFeet
-        cubicFeet
-        squareMeter
-        cubicMeter
-      }
+      itemUnit
       rate
       gst
       cgst
@@ -172,26 +153,7 @@ export const onUpdateItem = /* GraphQL */ `
       id
       name
       itemType
-      itemUnit {
-        no
-        meter
-        milliMeter
-        length
-        feet
-        inch
-        kg
-        gram
-        milliGram
-        ton
-        litre
-        milliLitre
-        dozen
-        coil
-        squareFeet
-        cubicFeet
-        squareMeter
-        cubicMeter
-      }
+      itemUnit
       rate
       gst
       cgst
@@ -211,32 +173,64 @@ export const onDeleteItem = /* GraphQL */ `
       id
       name
       itemType
-      itemUnit {
-        no
-        meter
-        milliMeter
-        length
-        feet
-        inch
-        kg
-        gram
-        milliGram
-        ton
-        litre
-        milliLitre
-        dozen
-        coil
-        squareFeet
-        cubicFeet
-        squareMeter
-        cubicMeter
-      }
+      itemUnit
       rate
       gst
       cgst
       sgst
       igst
       description
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateVendor = /* GraphQL */ `
+  subscription OnCreateVendor {
+    onCreateVendor {
+      id
+      name
+      itemType
+      gsTin
+      address
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateVendor = /* GraphQL */ `
+  subscription OnUpdateVendor {
+    onUpdateVendor {
+      id
+      name
+      itemType
+      gsTin
+      address
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteVendor = /* GraphQL */ `
+  subscription OnDeleteVendor {
+    onDeleteVendor {
+      id
+      name
+      itemType
+      gsTin
+      address
+      mobile
+      emailId
       createdBy
       createdDate
       createdAt

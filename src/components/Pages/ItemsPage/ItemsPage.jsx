@@ -129,26 +129,11 @@ const ItemsPage = ({itemList, getAllItems, createOrUpdateItem, deleteItem, usern
     }
 
     const getItemUnits = formValues => {
-        return {
-            no: formValues.get(ItemUnitList[0]) === "",
-            meter: formValues.get(ItemUnitList[1]) === "",
-            milliMeter: formValues.get(ItemUnitList[2]) === "",
-            length: formValues.get(ItemUnitList[3]) === "",
-            feet: formValues.get(ItemUnitList[4]) === "",
-            inch: formValues.get(ItemUnitList[5]) === "",
-            kg: formValues.get(ItemUnitList[6]) === "",
-            gram: formValues.get(ItemUnitList[7]) === "",
-            milliGram: formValues.get(ItemUnitList[8]) === "",
-            ton: formValues.get(ItemUnitList[9]) === "",
-            litre: formValues.get(ItemUnitList[10]) === "",
-            milliLitre: formValues.get(ItemUnitList[11]) === "",
-            dozen: formValues.get(ItemUnitList[12]) === "",
-            coil: formValues.get(ItemUnitList[13]) === "",
-            squareFeet: formValues.get(ItemUnitList[14]) === "",
-            cubicFeet: formValues.get(ItemUnitList[15]) === "",
-            squareMeter: formValues.get(ItemUnitList[16]) === "",
-            cubicMeter: formValues.get(ItemUnitList[17]) === "",
-        }
+        const ItemUnits = []
+        ItemUnitList.forEach(itemUnit => {
+            if(formValues.get(itemUnit) === "") ItemUnits.push(itemUnit)
+        })
+        return ItemUnits
     }
 
     const handleSubmit = event => {

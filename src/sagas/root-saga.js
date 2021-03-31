@@ -3,6 +3,7 @@ import authSaga from './auth-saga'
 import projectSaga from './project-saga'
 import contractorSaga from './contractor-saga'
 import itemSaga from "./item-saga";
+import vendorSaga from "./vendor-saga";
 
 export default function* rootSaga() {
     yield all([
@@ -10,5 +11,6 @@ export default function* rootSaga() {
         fork(projectSaga),
         fork(contractorSaga),
         fork(itemSaga),
+        fork(vendorSaga),
     ]);
 }

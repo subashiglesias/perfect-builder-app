@@ -59,7 +59,7 @@ type Item
   id: ID!
   name: String
   itemType: String
-  itemUnit: [itemUnits]
+  itemUnit: [String]
   rate: Int
   gst: Boolean
   cgst: Int
@@ -70,24 +70,22 @@ type Item
   createdDate: String
 }
 
-type itemUnits {
-  no: Boolean
-  meter: Boolean
-  milliMeter: Boolean
-  length: Boolean
-  feet: Boolean
-  inch: Boolean
-  kg: Boolean
-  gram: Boolean
-  milliGram: Boolean
-  ton: Boolean
-  litre: Boolean
-  milliLitre: Boolean
-  dozen: Boolean
-  coil: Boolean
-  squareFeet: Boolean
-  cubicFeet: Boolean
-  squareMeter: Boolean
-  cubicMeter: Boolean
+type Vendor
+@model
+@auth(
+  rules: [
+    { allow: groups, groups: ["Managers"], queries: [get, list], mutations: [create, update, delete] }
+    { allow: groups, groups: ["Employees"], queries: [get, list], mutations: [] }
+  ]
+) {
+  id: ID!
+  name: String
+  itemType: [String]
+  gsTin: Int
+  address: String
+  mobile: String
+  emailId: String
+  createdBy: String
+  createdDate: String
 }
 

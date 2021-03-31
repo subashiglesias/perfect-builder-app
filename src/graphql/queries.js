@@ -105,26 +105,7 @@ export const getItem = /* GraphQL */ `
       id
       name
       itemType
-      itemUnit {
-        no
-        meter
-        milliMeter
-        length
-        feet
-        inch
-        kg
-        gram
-        milliGram
-        ton
-        litre
-        milliLitre
-        dozen
-        coil
-        squareFeet
-        cubicFeet
-        squareMeter
-        cubicMeter
-      }
+      itemUnit
       rate
       gst
       cgst
@@ -149,32 +130,54 @@ export const listItems = /* GraphQL */ `
         id
         name
         itemType
-        itemUnit {
-          no
-          meter
-          milliMeter
-          length
-          feet
-          inch
-          kg
-          gram
-          milliGram
-          ton
-          litre
-          milliLitre
-          dozen
-          coil
-          squareFeet
-          cubicFeet
-          squareMeter
-          cubicMeter
-        }
+        itemUnit
         rate
         gst
         cgst
         sgst
         igst
         description
+        createdBy
+        createdDate
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getVendor = /* GraphQL */ `
+  query GetVendor($id: ID!) {
+    getVendor(id: $id) {
+      id
+      name
+      itemType
+      gsTin
+      address
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listVendors = /* GraphQL */ `
+  query ListVendors(
+    $filter: ModelVendorFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listVendors(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        itemType
+        gsTin
+        address
+        mobile
+        emailId
         createdBy
         createdDate
         createdAt
