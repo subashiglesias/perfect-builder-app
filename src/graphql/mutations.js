@@ -154,6 +154,26 @@ export const createItem = /* GraphQL */ `
       id
       name
       itemType
+      itemUnit {
+        no
+        meter
+        milliMeter
+        length
+        feet
+        inch
+        kg
+        gram
+        milliGram
+        ton
+        litre
+        milliLitre
+        dozen
+        coil
+        squareFeet
+        cubicFeet
+        squareMeter
+        cubicMeter
+      }
       rate
       gst
       cgst
@@ -176,6 +196,26 @@ export const updateItem = /* GraphQL */ `
       id
       name
       itemType
+      itemUnit {
+        no
+        meter
+        milliMeter
+        length
+        feet
+        inch
+        kg
+        gram
+        milliGram
+        ton
+        litre
+        milliLitre
+        dozen
+        coil
+        squareFeet
+        cubicFeet
+        squareMeter
+        cubicMeter
+      }
       rate
       gst
       cgst
@@ -198,6 +238,26 @@ export const deleteItem = /* GraphQL */ `
       id
       name
       itemType
+      itemUnit {
+        no
+        meter
+        milliMeter
+        length
+        feet
+        inch
+        kg
+        gram
+        milliGram
+        ton
+        litre
+        milliLitre
+        dozen
+        coil
+        squareFeet
+        cubicFeet
+        squareMeter
+        cubicMeter
+      }
       rate
       gst
       cgst

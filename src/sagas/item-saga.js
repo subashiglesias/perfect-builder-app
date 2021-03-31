@@ -56,6 +56,7 @@ const updateItemBody = (itemData, body) => {
         if(item.id === body.id) {
             item.name = body.name
             item.itemType = body.itemType
+            item.itemUnit = body.itemUnit
             item.rate = body.rate
             item.gst = body.gst
             item.cgst = body.cgst

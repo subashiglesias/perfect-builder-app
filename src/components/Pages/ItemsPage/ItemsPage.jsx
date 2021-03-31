@@ -9,182 +9,209 @@ import editField from "../../../images/edit-black.svg";
 import deleteField from "../../../images/delete-black.svg";
 import ItemsForm from "../../Forms/ItemsForm";
 import SelectField from "../../SelectField/SelectField";
-import { ItemTypeList } from "../../../constants";
+import {ItemTypeList, ItemUnitList} from "../../../constants";
+
 var moment = require('moment'); // require
 
 
 const ItemsPage = ({itemList, getAllItems, createOrUpdateItem, deleteItem, username}) => {
- const [dialog, setDialog] = useState('');
- const [editItem, setEditItem] = useState({});
- const [openModal, setOpenModal] = useState(false);
- const [selectedMaterialType, setSelectedMaterialType] = useState("");
+    const [dialog, setDialog] = useState('');
+    const [editItem, setEditItem] = useState({});
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedMaterialType, setSelectedMaterialType] = useState("");
 
- useEffect( () => {
-  getAllItems(selectedMaterialType)
- }, [selectedMaterialType]);
+    useEffect(() => {
+        getAllItems(selectedMaterialType)
+    }, [selectedMaterialType]);
 
- const toggleEditModal = () => {
-  setOpenModal(!openModal);
- }
+    const toggleEditModal = () => {
+        setOpenModal(!openModal);
+    }
 
- const editRow = (row, AllItems) => {
-  AllItems.forEach(async items => {
-   if (items.id === row.values.itemId) {
-    await setEditItem(items)
-    toggleEditModal()
-   }
-  });
- }
+    const editRow = (row, AllItems) => {
+        AllItems.forEach(async items => {
+            if (items.id === row.values.itemId) {
+                await setEditItem(items)
+                toggleEditModal()
+            }
+        });
+    }
 
- const deleteRow = (row, AllItems) => {
-  AllItems.forEach(async items => {
-   if (items.id === row.values.itemId) {
-    deleteItem(items.id)
-   }
-  });
- }
+    const deleteRow = (row, AllItems) => {
+        AllItems.forEach(async items => {
+            if (items.id === row.values.itemId) {
+                deleteItem(items.id)
+            }
+        });
+    }
 
- const columns = [
-  {
-   Header: 'Items',
-   columns: [
-    {
-     Header: 'Name',
-     accessor: 'itemName',
-    },
-    {
-     Header: 'Item ID',
-     accessor: 'itemId',
-    },
-    {
-     Header: 'Item Type',
-     accessor: 'itemType',
-    },
-    {
-     Header: 'Rate',
-     accessor: 'rate',
-    },
-    {
-     Header: 'GST item',
-     accessor: 'gst',
-    },
-    {
-     Header: 'CGST %',
-     accessor: 'cgst',
-    },
-    {
-     Header: 'SGST %',
-     accessor: 'sgst',
-    },
-    {
-     Header: 'IGST %',
-     accessor: 'igst',
-    },
-    {
-     Header: 'Description',
-     accessor: 'description',
-    },
-    {
-     Header: 'Created By',
-     accessor: 'createdBy',
-    },
-    {
-     Header: 'Created Date',
-     accessor: 'createdDate',
-    },
-    {
-     Header: 'Edit',
-     Cell: ({row}) => (<span onClick={() => editRow(row, itemList)}>
+    const columns = [
+        {
+            Header: 'Items',
+            columns: [
+                {
+                    Header: 'Name',
+                    accessor: 'itemName',
+                },
+                {
+                    Header: 'Item ID',
+                    accessor: 'itemId',
+                },
+                {
+                    Header: 'Item Type',
+                    accessor: 'itemType',
+                },
+                {
+                    Header: 'Rate',
+                    accessor: 'rate',
+                },
+                {
+                    Header: 'GST item',
+                    accessor: 'gst',
+                },
+                {
+                    Header: 'CGST %',
+                    accessor: 'cgst',
+                },
+                {
+                    Header: 'SGST %',
+                    accessor: 'sgst',
+                },
+                {
+                    Header: 'IGST %',
+                    accessor: 'igst',
+                },
+                {
+                    Header: 'Description',
+                    accessor: 'description',
+                },
+                {
+                    Header: 'Created By',
+                    accessor: 'createdBy',
+                },
+                {
+                    Header: 'Created Date',
+                    accessor: 'createdDate',
+                },
+                {
+                    Header: 'Edit',
+                    Cell: ({row}) => (<span onClick={() => editRow(row, itemList)}>
                             <Avatar alt="Edit Item" src={editField}/>
                         </span>),
-    },
-    {
-     Header: 'Delete',
-     Cell: ({row}) => (<span onClick={() => deleteRow(row, itemList)}>
+                },
+                {
+                    Header: 'Delete',
+                    Cell: ({row}) => (<span onClick={() => deleteRow(row, itemList)}>
                             <Avatar alt="Add Item" src={deleteField}/>
                         </span>),
-    },
-   ],
-  },
- ]
+                },
+            ],
+        },
+    ]
 
- const formatData = (items) => {
-  const data = []
-  items.forEach(item => data.push({
-   itemName: item.name,
-   itemId: item.id,
-   itemType: item.itemType,
-   rate: item.rate,
-   gst: item.gst ? "Yes" : "No",
-   cgst: item.cgst,
-   sgst: item.sgst,
-   igst: item.igst,
-   description: item.description,
-   createdBy: item.createdBy,
-   createdDate: item.createdDate,
-  }))
-  return data;
- }
+    const formatData = (items) => {
+        const data = []
+        items.forEach(item => data.push({
+            itemName: item.name,
+            itemId: item.id,
+            itemType: item.itemType,
+            itemUnit: item.itemUnit,
+            rate: item.rate,
+            gst: item.gst ? "Yes" : "No",
+            cgst: item.cgst,
+            sgst: item.sgst,
+            igst: item.igst,
+            description: item.description,
+            createdBy: item.createdBy,
+            createdDate: item.createdDate,
+        }))
+        return data;
+    }
 
- const handleSubmit = event => {
-  event.preventDefault();
-  const form = event.target;
-  const body = createNewItemBody(new FormData(form));
-  createOrUpdateItem(body);
-  toggleEditModal();
- };
+    const getItemUnits = formValues => {
+        return {
+            no: formValues.get(ItemUnitList[0]) === "",
+            meter: formValues.get(ItemUnitList[1]) === "",
+            milliMeter: formValues.get(ItemUnitList[2]) === "",
+            length: formValues.get(ItemUnitList[3]) === "",
+            feet: formValues.get(ItemUnitList[4]) === "",
+            inch: formValues.get(ItemUnitList[5]) === "",
+            kg: formValues.get(ItemUnitList[6]) === "",
+            gram: formValues.get(ItemUnitList[7]) === "",
+            milliGram: formValues.get(ItemUnitList[8]) === "",
+            ton: formValues.get(ItemUnitList[9]) === "",
+            litre: formValues.get(ItemUnitList[10]) === "",
+            milliLitre: formValues.get(ItemUnitList[11]) === "",
+            dozen: formValues.get(ItemUnitList[12]) === "",
+            coil: formValues.get(ItemUnitList[13]) === "",
+            squareFeet: formValues.get(ItemUnitList[14]) === "",
+            cubicFeet: formValues.get(ItemUnitList[15]) === "",
+            squareMeter: formValues.get(ItemUnitList[16]) === "",
+            cubicMeter: formValues.get(ItemUnitList[17]) === "",
+        }
+    }
 
- const createNewItemBody = (formValues) => {
-  return {
-   id: formValues.get('id'),
-   name: formValues.get('name'),
-   itemType: formValues.get('itemType'),
-   rate: formValues.get('rate'),
-   gst: formValues.get('gst') === "",
-   cgst: formValues.get('cgst'),
-   sgst: formValues.get('sgst'),
-   igst: formValues.get('igst'),
-   description: formValues.get('description'),
-   createdBy: username,
-   createdDate: moment().format('DD/MM/YYYY'),
-  }
- }
+    const handleSubmit = event => {
+        event.preventDefault();
+        const form = event.target;
+        const body = createNewItemBody(new FormData(form));
+        createOrUpdateItem(body);
+        toggleEditModal();
+    };
 
- return (
-     <div className="items-page">
-      <SelectField label="Select item type" id={'itemType'} updateHandler={setSelectedMaterialType} required optionsLabel={ItemTypeList} optionsValue={ItemTypeList} />
-      <div className="items-table">
-      <div className="add-new">
-                <span >
+    const createNewItemBody = (formValues) => {
+        return {
+            id: formValues.get('id'),
+            name: formValues.get('name'),
+            itemType: formValues.get('itemType'),
+            itemUnit: getItemUnits(formValues),
+            rate: formValues.get('rate'),
+            gst: formValues.get('gst') === "",
+            cgst: formValues.get('cgst'),
+            sgst: formValues.get('sgst'),
+            igst: formValues.get('igst'),
+            description: formValues.get('description'),
+            createdBy: username,
+            createdDate: moment().format('DD/MM/YYYY'),
+        }
+    }
+
+    return (
+        <div className="items-page">
+            <SelectField label="Select item type" id={'itemType'} updateHandler={setSelectedMaterialType} required
+                         optionsLabel={ItemTypeList} optionsValue={ItemTypeList}/>
+            <div className="items-table">
+                <div className="add-new">
+                <span>
                     <Avatar alt="Add item" src={addField} onClick={() => {
-                     setEditItem({})
-                     setOpenModal(true)
+                        setEditItem({})
+                        setOpenModal(true)
                     }}/>
                 </span>
-      </div>
-      <Styles>
-       <ReactTable columns={columns} data={formatData(itemList)}/>
-      </Styles>
-      <Modal
-          isOpen={openModal}
-          ariaHideApp={false}
-          onRequestClose={toggleEditModal}
-          contentLabel="Example Modal"
-      >
-       <div className="Item-page__form">
-        <ItemsForm handleSubmit={handleSubmit} dialog={dialog} itemType={selectedMaterialType}
-                         fieldValues={editItem}/>
-       </div>
-       <span className="modalClose" onClick={() => {
-        toggleEditModal()
-        setEditItem({})
-       }}>
+                </div>
+                <Styles>
+                    <ReactTable columns={columns} data={formatData(itemList)}/>
+                </Styles>
+                <Modal
+                    isOpen={openModal}
+                    ariaHideApp={false}
+                    onRequestClose={toggleEditModal}
+                    contentLabel="Example Modal"
+                >
+                    <div className="Item-page__form">
+                        <ItemsForm handleSubmit={handleSubmit} dialog={dialog} itemType={selectedMaterialType}
+                                   fieldValues={editItem}/>
+                    </div>
+                    <span className="modalClose" onClick={() => {
+                        toggleEditModal()
+                        setEditItem({})
+                    }}>
               ✕
             </span>
-      </Modal>
-     </div>
-     </div>
- )
+                </Modal>
+            </div>
+        </div>
+    )
 
 }
 

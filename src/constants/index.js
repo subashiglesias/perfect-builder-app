@@ -56,6 +56,27 @@ const ItemTypeList = [
     "Extra expense",
 ]
 
+const ItemUnitList = [
+    "no",
+    "meter",
+    "milliMeter",
+    "length",
+    "feet",
+    "inch",
+    "kg",
+    "gram",
+    "milliGram",
+    "ton",
+    "litre",
+    "milliLitre",
+    "dozen",
+    "coil",
+    "squareFeet",
+    "cubicFeet",
+    "squareMeter",
+    "cubicMeter",
+]
+
 const ButtonTypes = {
     PRIMARY: 'primary',
     REVERSE: 'reverse',
@@ -73,5 +94,6 @@ export {
     RouterPaths,
     Descriptions,
     ContractList,
-    ItemTypeList
+    ItemTypeList,
+    ItemUnitList
 };
