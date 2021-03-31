@@ -1,5 +1,37 @@
 .customers-page {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   height: 50rem;
+
+  select {
+    align-self: center;
+  }
+
+  .customers-table {
+    display: flex;
+    justify-content: center;
+
+    .MuiTabs-vertical {
+      min-width: 10rem;
+    }
+
+    .MuiAvatar-img {
+      width: 1.5rem;
+      height: 1.5rem;
+      cursor: pointer;
+    }
+
+    .add-new {
+      .MuiAvatar-img {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    table {
+      th:nth-last-child(n+3) {
+        min-width: 12rem;
+      }
+    }
+  }
 }

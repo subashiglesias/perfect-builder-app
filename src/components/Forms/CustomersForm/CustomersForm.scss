@@ -1,0 +1,90 @@
+.item-form {
+    .header {
+        width: 100%;
+        border-bottom: 1px solid gray;
+        font-size: 18px;
+        text-align: center;
+        padding: 5px;
+    }
+    form  {
+        .content {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            padding: 2rem 0 0 5rem;
+            .text-box {
+                padding: 0.3rem 0;
+                display: block;
+            }
+            error {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                padding: 0.5rem 0 0 15rem;
+                color: #db0c2b;
+            }
+        }
+
+        .additional-content {
+            padding: 5rem 0;
+            display: flex;
+            justify-content: center;
+
+            .text-box {
+                input {
+                    min-width: 10rem;
+                }
+            }
+        }
+
+        .actions {
+            display: flex;
+            position: fixed;
+            width: 100%;
+            padding: 1rem 0;
+            margin: auto;
+            justify-content: center;
+            bottom: 0;
+        }
+    }
+    .floor {
+        input {
+            width: 6rem;
+            margin: 0 0.5rem;
+        }
+        input:first-child {
+            width: 2rem;
+        }
+    }
+
+    .add-new {
+        .MuiAvatar-img {
+            cursor: pointer;
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    .blocks {
+        padding-top: 3rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .floor {
+        display: flex;
+        align-items: center;
+        .MuiAvatar-img {
+            cursor: pointer;
+            width: 1rem;
+            height: 1rem;
+        }
+    }
+
+    .MuiAvatar-img {
+        cursor: pointer;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+

@@ -4,3 +4,4 @@ export * from './pageload';
 export * from './contractor';
 export * from './item';
 export * from './vendor';
+export * from './customer';

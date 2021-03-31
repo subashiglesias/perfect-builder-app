@@ -6,6 +6,7 @@ import contractors from './contractor';
 import pageLoading from './page-loading-reducer';
 import items from './item';
 import vendors from './vendor';
+import customers from './customer';
 
 export const reducers = {
     routing: routerReducer,
@@ -14,6 +15,7 @@ export const reducers = {
     contractors,
     items,
     vendors,
+    customers,
     pageLoading
 };
 

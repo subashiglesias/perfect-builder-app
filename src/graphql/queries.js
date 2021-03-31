@@ -46,11 +46,6 @@ export const listProjects = /* GraphQL */ `
           carParkingArea
           noOfUnits
           noOfFloors
-          floors {
-            name
-            floorNo
-            ceilingHeight
-          }
           basementHeight
         }
         createdBy
@@ -175,6 +170,45 @@ export const listVendors = /* GraphQL */ `
         name
         itemType
         gsTin
+        address
+        mobile
+        emailId
+        createdBy
+        createdDate
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCustomer = /* GraphQL */ `
+  query GetCustomer($id: ID!) {
+    getCustomer(id: $id) {
+      id
+      name
+      projectName
+      address
+      mobile
+      emailId
+      createdBy
+      createdDate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCustomers = /* GraphQL */ `
+  query ListCustomers(
+    $filter: ModelCustomerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCustomers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        projectName
         address
         mobile
         emailId

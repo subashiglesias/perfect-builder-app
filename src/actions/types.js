@@ -14,6 +14,12 @@ export const CREATE_UPDATE_ITEMS = "create_update_items"
 export const DELETE_ITEM = "delete_items"
 export const UPDATE_ITEMS = "update_items"
 
+// Customer
+export const GET_CUSTOMERS = "get_customers"
+export const CREATE_UPDATE_CUSTOMERS = "create_update_customers"
+export const DELETE_CUSTOMER = "delete_customers"
+export const UPDATE_CUSTOMERS = "update_customers"
+
 // Vendors
 export const GET_VENDORS = "get_vendors"
 export const CREATE_UPDATE_VENDORS = "create_update_vendors"
